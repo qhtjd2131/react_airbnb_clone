@@ -1,0 +1,97 @@
+.header-bar {
+  padding: 0 80px;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid blue;
+  color: white;
+  font-size: 20px;
+}
+
+.logo-container {
+  font-size: 30px;
+  font-weight: 700;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.logo-container .airbnb_logo_label {
+  padding-bottom: 10px;
+  padding-left: 10px;
+}
+
+.searchBar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.searchBar-container .search-state ,
+.searchBar-container .selected-search-state{
+  text-decoration: none;
+  padding: 20px;
+  display: inline-block;
+  margin: 0;
+  cursor: pointer;
+}
+
+.searchBar-container .search-state:hover {
+  color: rgb(206, 198, 198);
+}
+.searchBar-container .search-state:after {
+  display: block;
+  content: "";
+  border-bottom: solid 3px white;
+  transform: scaleX(0);
+  transition: transform 250ms ease-in-out;
+}
+
+.searchBar-container .search-state:hover:after {
+  transform: scaleX(0.2);
+}
+
+.searchBar-container .search-state:active:after {
+  transform: scaleX(1);
+}
+.searchBar-container .selected-search-state:after {
+  display: block;
+  content: "";
+  border-bottom: solid 3px white;
+  transition: transform 250ms ease-in-out;
+}
+
+.user-container {
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-data {
+  width: 70px;
+  display: flex;
+  justify-content: space-around;
+  background-color: white;
+  color: gray;
+  padding: 10px 10px;
+  border-radius: 55px;
+}
+
+.user-menu,
+.user-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+}
+
+.user-menu {
+  font-size: 20px;
+  padding: 0px;
+}
+.user-icon {
+  font-size: 35px;
+}
