@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import "./HeaderBar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAirbnb } from "@fortawesome/free-brands-svg-icons";
 import { faGlobe, faBars, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 
-const HeaderBar = () => {
+const HeaderBar = ({target, targetChange}) => {
   const AB_LOGO = () => {
     return (
       <div className="logo-container">
@@ -14,8 +14,8 @@ const HeaderBar = () => {
     );
   };
 
-  const AB_SearchBar = () => {
-    const [target, setTarget] = useState("");
+  const AB_SEARCH_BAR = () => {
+    // const [target, setTarget] = useState("");
     const navigations = [
       {
         name: "숙소",
@@ -31,16 +31,14 @@ const HeaderBar = () => {
       },
     ];
     const handleClick = (e) => {
-      console.log(e.target.className);
-      console.log(e.target.outerText);
-      setTarget(e.target.outerText);
+      targetChange(e.target.outerText);
 
     };
     return (
       <nav className="searchBar-container">
         {navigations.map((navigation) => (
           <div
-            className={target==navigation.name ?  "selected-search-state" : "search-state"}
+            className={target===navigation.name ?  "selected-search-state" : "search-state"}
             href={navigation.link}
             onClick={handleClick}
             key={navigation.name}
@@ -52,7 +50,7 @@ const HeaderBar = () => {
     );
   };
 
-  const AB_UserBar = () => {
+  const AB_USER_BAR = () => {
     return (
       <div className="user-container">
         <div className="to-be-host">호스트 되기</div>
@@ -74,8 +72,8 @@ const HeaderBar = () => {
   return (
     <div className="header-bar">
       <AB_LOGO />
-      <AB_SearchBar />
-      <AB_UserBar />
+      <AB_SEARCH_BAR />
+      <AB_USER_BAR />
     </div>
   );
 };

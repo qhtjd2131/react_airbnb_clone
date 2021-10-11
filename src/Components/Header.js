@@ -1,19 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Header.css";
-import styled from "styled-components";
-import HeaderBar from "./HeaderBar";
+import HeaderBar from "./HeaderBar.js";
+import Search from "./Search.js";
 
 // import treeImage from "../images/Sample.jpg"
 
 const Header = () => {
-  const Button = styled.button`
-    font-size: 400px;
-  `;
+  const [target, setTarget] = useState("숙소");
+
+  const targetChange = (text) => {
+    setTarget(text);
+  };
 
   return (
     <div className="header-container">
-      <HeaderBar />
-      <div className="search"></div>
+      <HeaderBar targetChange={targetChange} target={target} />
+      <Search search_state={target} />
       <div className="flexible search"></div>
     </div>
   );
