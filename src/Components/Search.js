@@ -1,6 +1,10 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import "./Search.css";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+
 const SearchContainer = styled.div`
   width: 100%;
   display: flex;
@@ -9,9 +13,11 @@ const SearchContainer = styled.div`
 `;
 
 const SearchBar = styled.div`
+  position: relative;
   height: 70px;
   margin: 0 120px;
-  width: 100%;
+  width: 975px;
+  min-width: 975px;
   background-color: white;
   border-radius: 30px / 50%;
   display: flex;
@@ -104,6 +110,30 @@ const ContentWrapper = styled.div`
   &:first-child::before {
     background-color: transparent;
   }
+
+  ${(props) =>
+    props.state === "button" &&
+    css`
+      padding-right: 95px;
+    `}
+`;
+
+const SearchIcon = styled.div`
+  position: absolute;
+  right : 10px;
+  width : 55px;
+  height : 55px;
+  display : flex;
+  font-size : 27px;
+  justify-content : center;
+  align-items : center;
+  background-color : #e64a19;
+  border-radius:50%;
+  color : white;
+
+  &:hover{
+      background-color:#ac0800;
+  }
 `;
 
 const Search = ({ search_state }) => {
@@ -122,21 +152,21 @@ const Search = ({ search_state }) => {
           </InputBox>
         </ContentWrapper>
         {/* ---- */}
-        <ContentWrapper>
+        <ContentWrapper state="button">
           <ButtonBox>
             <Label state="title">체크인</Label>
             <Label state="contents">날짜 입력</Label>
           </ButtonBox>
         </ContentWrapper>
         {/* ---- */}
-        <ContentWrapper>
+        <ContentWrapper state="button">
           <ButtonBox>
             <Label state="title">체크아웃</Label>
             <Label state="contents">날짜 입력</Label>
           </ButtonBox>
         </ContentWrapper>
         {/* ---- */}
-        <ContentWrapper>
+        <ContentWrapper state="button">
           <ButtonBox>
             <Label state="title">인원</Label>
             <Label state="contents">게스트 추가</Label>
@@ -145,6 +175,10 @@ const Search = ({ search_state }) => {
         {/* 
         인원
         날짜(display:none) */}
+
+        <SearchIcon>
+          <FontAwesomeIcon icon={faSearch} />
+        </SearchIcon>
       </SearchBar>
     </SearchContainer>
   );

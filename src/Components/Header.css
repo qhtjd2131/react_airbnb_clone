@@ -10,4 +10,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center bottom;
+
+  display: flex;
+  flex-direction: column;
 }

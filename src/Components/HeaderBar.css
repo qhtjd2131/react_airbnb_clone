@@ -1,10 +1,10 @@
 .header-bar {
   padding: 0 80px;
   height: 80px;
+  min-width: 850px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 2px solid blue;
   color: white;
   font-size: 20px;
 }
