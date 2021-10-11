@@ -1,9 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import "./Search.css";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 
 const SearchContainer = styled.div`
   width: 100%;
@@ -26,16 +24,16 @@ const SearchBar = styled.div`
 `;
 
 const Input = styled.input`
-  width: 100px;
   border: none;
   background-color: transparent;
+  font-size: 20px;
+  width: 400px;
   &:focus {
     outline: none;
   }
   ${(props) =>
     props.search_state === "숙소" &&
     css`
-      font-size: 20px;
       width: 200px;
     `}
 `;
@@ -110,29 +108,36 @@ const ContentWrapper = styled.div`
   &:first-child::before {
     background-color: transparent;
   }
-
   ${(props) =>
     props.state === "button" &&
     css`
+      padding-right: 95px;
+    `}
+  ${(props) =>
+    props.visible_state !== "all" &&
+    !(props.search_state === props.visible_state) &&
+    css`
+      display: none;
       padding-right: 95px;
     `}
 `;
 
 const SearchIcon = styled.div`
   position: absolute;
-  right : 10px;
-  width : 55px;
-  height : 55px;
-  display : flex;
-  font-size : 27px;
-  justify-content : center;
-  align-items : center;
-  background-color : #e64a19;
-  border-radius:50%;
-  color : white;
+  right: 10px;
+  width: 55px;
+  height: 55px;
+  display: flex;
+  font-size: 27px;
+  justify-content: center;
+  align-items: center;
+  background-color: #e64a19;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
 
-  &:hover{
-      background-color:#ac0800;
+  &:hover {
+    background-color: #ac0800;
   }
 `;
 
@@ -140,42 +145,60 @@ const Search = ({ search_state }) => {
   return (
     <SearchContainer>
       <SearchBar>
-        <ContentWrapper>
+        <ContentWrapper search_state={search_state} visible_state="all">
           <InputBox>
             <Label>위치</Label>
             <Input
               search_state={search_state}
               placeholder="어디로 여행가세요?"
-              autoComplete={false}
               spellCheck={false}
             />
           </InputBox>
         </ContentWrapper>
         {/* ---- */}
-        <ContentWrapper state="button">
+        <ContentWrapper
+          state="button"
+          search_state={search_state}
+          visible_state="숙소"
+        >
           <ButtonBox>
             <Label state="title">체크인</Label>
             <Label state="contents">날짜 입력</Label>
           </ButtonBox>
         </ContentWrapper>
         {/* ---- */}
-        <ContentWrapper state="button">
+        <ContentWrapper
+          state="button"
+          search_state={search_state}
+          visible_state="숙소"
+        >
           <ButtonBox>
             <Label state="title">체크아웃</Label>
             <Label state="contents">날짜 입력</Label>
           </ButtonBox>
         </ContentWrapper>
         {/* ---- */}
-        <ContentWrapper state="button">
+        <ContentWrapper
+          state="button"
+          search_state={search_state}
+          visible_state="숙소"
+        >
           <ButtonBox>
             <Label state="title">인원</Label>
             <Label state="contents">게스트 추가</Label>
           </ButtonBox>
         </ContentWrapper>
-        {/* 
-        인원
-        날짜(display:none) */}
-
+        {/* ---- */}
+        <ContentWrapper
+          state="button"
+          search_state={search_state}
+          visible_state="체험"
+        >
+          <ButtonBox>
+            <Label state="title">날짜</Label>
+            <Label state="contents">원하는 날짜를 입력하세요.</Label>
+          </ButtonBox>
+        </ContentWrapper>
         <SearchIcon>
           <FontAwesomeIcon icon={faSearch} />
         </SearchIcon>

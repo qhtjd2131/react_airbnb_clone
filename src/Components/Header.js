@@ -4,9 +4,6 @@ import "./Header.css";
 import HeaderBar from "./HeaderBar.js";
 import Search from "./Search.js";
 
-
-// import treeImage from "../images/Sample.jpg"
-
 const Header = () => {
   const [target, setTarget] = useState("숙소");
 
