@@ -14,44 +14,48 @@ const SearchBar = styled.div`
   position: relative;
   height: 70px;
   margin: 0 120px;
-  width: 975px;
-  min-width: 975px;
+  width: fit-content;
+  min-width: 1020px;
   background-color: white;
   border-radius: 30px / 50%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display : grid;
+  grid-template-columns : 6fr 4fr 4fr 5fr;
+  ${(props) =>
+    props.search_state === "체험" &&
+    css`
+      grid-template-columns : 1fr 1fr;
+    `}
 `;
 
 const Input = styled.input`
   border: none;
   background-color: transparent;
   font-size: 20px;
-  width: 400px;
+  width: 100%;
+  box-sizing: border-box;
   &:focus {
     outline: none;
   }
-  ${(props) =>
-    props.search_state === "숙소" &&
-    css`
-      width: 200px;
-    `}
 `;
 
 const InputBox = styled.div`
   height: 100%;
   border: none;
   border-radius: inherit;
-  width: 250px;
+  width: 100%;
   box-sizing: border-box;
   padding: 0 30px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  
 `;
 const Label = styled.div`
   font-size: 18px;
+  width  : 100%;
+  text-align : left;
   ${(props) =>
     props.state === "title" &&
     css`
@@ -76,10 +80,12 @@ const ButtonBox = styled.button`
   flex-direction: column;
   justify-content: center;
   height: 100%;
+  width : 100%;
 `;
 
 const ContentWrapper = styled.div`
   height: 100%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -100,6 +106,7 @@ const ContentWrapper = styled.div`
     height: 60%;
     width: 2px;
     margin: 0;
+    margin-right : 6px;
     padding: 0;
     content: "";
     background-color: #babdbe;
@@ -108,22 +115,18 @@ const ContentWrapper = styled.div`
   &:first-child::before {
     background-color: transparent;
   }
-  ${(props) =>
-    props.state === "button" &&
-    css`
-      padding-right: 95px;
-    `}
+ 
   ${(props) =>
     props.visible_state !== "all" &&
     !(props.search_state === props.visible_state) &&
     css`
       display: none;
-      padding-right: 95px;
-    `}
+ `}
 `;
 
 const SearchIcon = styled.div`
   position: absolute;
+  top:7px;
   right: 10px;
   width: 55px;
   height: 55px;
@@ -144,12 +147,12 @@ const SearchIcon = styled.div`
 const Search = ({ search_state }) => {
   return (
     <SearchContainer>
-      <SearchBar>
+      <SearchBar search_state={search_state}>
         <ContentWrapper search_state={search_state} visible_state="all">
-          <InputBox>
-            <Label>위치</Label>
+          <InputBox search_state={search_state}>
+            <Label state="title">위치</Label>
             <Input
-              search_state={search_state}
+              
               placeholder="어디로 여행가세요?"
               spellCheck={false}
             />

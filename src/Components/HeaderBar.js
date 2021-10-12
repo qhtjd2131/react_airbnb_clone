@@ -7,7 +7,7 @@ import { faGlobe, faBars, faUserCircle } from "@fortawesome/free-solid-svg-icons
 const HeaderBar = ({target, targetChange}) => {
   const AB_LOGO = () => {
     return (
-      <div className="logo-container">
+      <div className="logo-container" onClick={()=>{console.log("click logo")}}>
         <FontAwesomeIcon icon={faAirbnb} />
         <label className="airbnb_logo_label">airbnb</label>
       </div>
