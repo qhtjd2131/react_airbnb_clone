@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SearchWhereDialog from "./SearchWhereDialog";
 
 const SearchContainer = styled.div`
   width: 100%;
@@ -16,14 +17,14 @@ const SearchBar = styled.div`
   margin: 0 120px;
   width: fit-content;
   min-width: 1020px;
-  background-color: white;
+  background-color: #f7f7f7;
   border-radius: 30px / 50%;
-  display : grid;
-  grid-template-columns : 6fr 4fr 4fr 5fr;
+  display: grid;
+  grid-template-columns: 6fr 4fr 4fr 5fr;
   ${(props) =>
     props.search_state === "체험" &&
     css`
-      grid-template-columns : 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
     `}
 `;
 
@@ -49,13 +50,11 @@ const InputBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  
 `;
 const Label = styled.div`
   font-size: 18px;
-  width  : 100%;
-  text-align : left;
+  width: 100%;
+  text-align: left;
   ${(props) =>
     props.state === "title" &&
     css`
@@ -80,10 +79,11 @@ const ButtonBox = styled.button`
   flex-direction: column;
   justify-content: center;
   height: 100%;
-  width : 100%;
+  width: 100%;
 `;
 
 const ContentWrapper = styled.div`
+position : relative;
   height: 100%;
   width: 100%;
   display: flex;
@@ -106,7 +106,7 @@ const ContentWrapper = styled.div`
     height: 60%;
     width: 2px;
     margin: 0;
-    margin-right : 6px;
+    margin-right: 6px;
     padding: 0;
     content: "";
     background-color: #babdbe;
@@ -115,18 +115,32 @@ const ContentWrapper = styled.div`
   &:first-child::before {
     background-color: transparent;
   }
- 
+
   ${(props) =>
     props.visible_state !== "all" &&
     !(props.search_state === props.visible_state) &&
     css`
       display: none;
- `}
+    `}
+
+  ${(props) =>
+    props.isSelectedItem &&
+    css`
+      background-color: white;
+      box-shadow: 0px 6px 16px rgb(0 0 0 / 30%);
+
+      &::before {
+        background-color: transparent;
+      }
+      &:hover {
+        background-color: white;
+      }
+    `}
 `;
 
 const SearchIcon = styled.div`
   position: absolute;
-  top:7px;
+  top: 7px;
   right: 10px;
   width: 55px;
   height: 55px;
@@ -145,24 +159,34 @@ const SearchIcon = styled.div`
 `;
 
 const Search = ({ search_state }) => {
+  const [selectedItem, setSelectedItem] = useState("");
+
   return (
     <SearchContainer>
       <SearchBar search_state={search_state}>
-        <ContentWrapper search_state={search_state} visible_state="all">
+        <ContentWrapper
+          search_state={search_state}
+          visible_state="all"
+          isSelectedItem={selectedItem === "위치" ? true : false}
+          onClick={() => {
+            setSelectedItem("위치");
+          }}
+        >
           <InputBox search_state={search_state}>
             <Label state="title">위치</Label>
-            <Input
-              
-              placeholder="어디로 여행가세요?"
-              spellCheck={false}
-            />
+            <Input placeholder="어디로 여행가세요?" spellCheck={false} />
           </InputBox>
+          <SearchWhereDialog selectedItem={selectedItem} />
         </ContentWrapper>
         {/* ---- */}
         <ContentWrapper
           state="button"
           search_state={search_state}
           visible_state="숙소"
+          isSelectedItem={selectedItem === "체크인" ? true : false}
+          onClick={() => {
+            setSelectedItem("체크인");
+          }}
         >
           <ButtonBox>
             <Label state="title">체크인</Label>
@@ -174,6 +198,10 @@ const Search = ({ search_state }) => {
           state="button"
           search_state={search_state}
           visible_state="숙소"
+          isSelectedItem={selectedItem === "체크아웃" ? true : false}
+          onClick={() => {
+            setSelectedItem("체크아웃");
+          }}
         >
           <ButtonBox>
             <Label state="title">체크아웃</Label>
@@ -185,6 +213,10 @@ const Search = ({ search_state }) => {
           state="button"
           search_state={search_state}
           visible_state="숙소"
+          isSelectedItem={selectedItem === "인원" ? true : false}
+          onClick={() => {
+            setSelectedItem("인원");
+          }}
         >
           <ButtonBox>
             <Label state="title">인원</Label>
@@ -196,6 +228,10 @@ const Search = ({ search_state }) => {
           state="button"
           search_state={search_state}
           visible_state="체험"
+          isSelectedItem={selectedItem === "날짜" ? true : false}
+          onClick={() => {
+            setSelectedItem("날짜");
+          }}
         >
           <ButtonBox>
             <Label state="title">날짜</Label>
@@ -206,6 +242,7 @@ const Search = ({ search_state }) => {
           <FontAwesomeIcon icon={faSearch} />
         </SearchIcon>
       </SearchBar>
+      
     </SearchContainer>
   );
 };
