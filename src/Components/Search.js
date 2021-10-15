@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchWhereDialog from "./SearchWhereDialog";
+import SearchCheckInOutDialog from "./SearchCheckInDialog";
 
 const SearchContainer = styled.div`
   width: 100%;
@@ -83,7 +84,7 @@ const ButtonBox = styled.button`
 `;
 
 const ContentWrapper = styled.div`
-position : relative;
+  position: relative;
   height: 100%;
   width: 100%;
   display: flex;
@@ -156,10 +157,20 @@ const SearchIcon = styled.div`
   &:hover {
     background-color: #ac0800;
   }
+
+  ${(props) =>
+    props.selectedItem === "none" &&
+    css`
+      &::after {
+        content: "검색";
+      }
+    `}
 `;
 
 const Search = ({ search_state }) => {
   const [selectedItem, setSelectedItem] = useState("");
+  //   const [isOpenCheckInOutDialog, setisOpenCheckInOutDialog] = useState(false);
+  //   const [isFirstOpen, setIsFirstOpen] = useState(true);
 
   return (
     <SearchContainer>
@@ -178,9 +189,11 @@ const Search = ({ search_state }) => {
           </InputBox>
           <SearchWhereDialog selectedItem={selectedItem} />
         </ContentWrapper>
+
         {/* ---- */}
+
         <ContentWrapper
-          state="button"
+          // state="button"
           search_state={search_state}
           visible_state="숙소"
           isSelectedItem={selectedItem === "체크인" ? true : false}
@@ -192,10 +205,12 @@ const Search = ({ search_state }) => {
             <Label state="title">체크인</Label>
             <Label state="contents">날짜 입력</Label>
           </ButtonBox>
+          <SearchCheckInOutDialog selectedItem={selectedItem} />
         </ContentWrapper>
+
         {/* ---- */}
         <ContentWrapper
-          state="button"
+          // state="button"
           search_state={search_state}
           visible_state="숙소"
           isSelectedItem={selectedItem === "체크아웃" ? true : false}
@@ -207,10 +222,11 @@ const Search = ({ search_state }) => {
             <Label state="title">체크아웃</Label>
             <Label state="contents">날짜 입력</Label>
           </ButtonBox>
+          {/* <SearchCheckInOutDialog selectedItem={selectedItem} /> */}
         </ContentWrapper>
         {/* ---- */}
         <ContentWrapper
-          state="button"
+          // state="button"
           search_state={search_state}
           visible_state="숙소"
           isSelectedItem={selectedItem === "인원" ? true : false}
@@ -225,7 +241,7 @@ const Search = ({ search_state }) => {
         </ContentWrapper>
         {/* ---- */}
         <ContentWrapper
-          state="button"
+          // state="button"
           search_state={search_state}
           visible_state="체험"
           isSelectedItem={selectedItem === "날짜" ? true : false}
@@ -238,11 +254,10 @@ const Search = ({ search_state }) => {
             <Label state="contents">원하는 날짜를 입력하세요.</Label>
           </ButtonBox>
         </ContentWrapper>
-        <SearchIcon>
+        <SearchIcon selectedItem={selectedItem}>
           <FontAwesomeIcon icon={faSearch} />
         </SearchIcon>
       </SearchBar>
-      
     </SearchContainer>
   );
 };

@@ -15,7 +15,6 @@ const HeaderBar = ({target, targetChange}) => {
   };
 
   const AB_SEARCH_BAR = () => {
-    // const [target, setTarget] = useState("");
     const navigations = [
       {
         name: "숙소",
