@@ -3,6 +3,7 @@ import styled from "styled-components";
 import "react-dates/initialize";
 import { DayPickerRangeController } from "react-dates";
 import "react-dates/lib/css/_datepicker.css";
+import "./react-dates-style.css";
 
 const SearchCheckInOutDialogContainer = styled.div`
   width: fit-content;
@@ -18,7 +19,7 @@ const Dialog = styled.dialog`
   box-sizing: border-box;
   margin: 0;
   padding: 30px;
-  /* visibility: visible; */
+  visibility: visible;
 `;
 
 const DialogContentsWrapper = styled.div`
@@ -44,7 +45,7 @@ const SearchCheckInOutDialog = ({ selectedItem }) => {
         }
       >
         <DialogContentsWrapper>
-          <DayPickerRangeController numberOfMonths={2} />
+          <DayPickerRangeController numberOfMonths={2} daySize={64} />
         </DialogContentsWrapper>
       </Dialog>
     </SearchCheckInOutDialogContainer>
