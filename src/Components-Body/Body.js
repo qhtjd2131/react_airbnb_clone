@@ -2,8 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import NearbyTravelComponent from "./NearbyTravelComponent";
 import RecommendationCategoryComponent from "./RecommendationCategoryComponent";
+import StartHostingComponent from "./StartHostingComponent";
 const BodyWrapper = styled.section`
-  padding: 0px 80px;
+  padding: 20px 80px;
   margin: 0;
   width: inherit;
 `;
@@ -12,6 +13,7 @@ const Body = () => {
     <BodyWrapper>
       <NearbyTravelComponent />
       <RecommendationCategoryComponent />
+      <StartHostingComponent />
     </BodyWrapper>
   );
 };

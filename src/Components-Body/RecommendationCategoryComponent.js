@@ -8,37 +8,47 @@ import category4 from "../images/category4.jpg";
 const largeWidth = "1228px";
 
 const RecommendationCategory = styled.div`
-  margin-top: 80px;
+  padding : 60px 0px;
   box-sizing: border-box;
 `;
 const RC_Title = styled.h2`
   font-size: 40px;
 `;
 const RC_Contents = styled.div`
-  display: grid;
+  display: flex;
+  flex-wrap: nowrap;
+  /* display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: auto;
-  overflow-x: auto;
+  grid-template-rows: 1fr;
+  grid-auto-flow: column; */
+  /* overflow:auto hidden;; */
+  scroll-snap-type: x mandatory;
+  overflow : auto hidden;
 
+  /* grid-auto-columns: 1fr; */
   @media only screen and (max-width: ${largeWidth}) {
-    grid-template-columns: repeat(3, 1fr);
+    /* grid-template-columns: repeat(3, 1fr); */
+    /* overflow-x: hidden; */
   }
 `;
 
 const RC_Item = styled.div`
   display: flex;
   flex-direction: column;
+
   @media only screen and (max-width: ${largeWidth}) {
     &:last-child {
-      display: none;
+      /* display: none; */
     }
   }
 `;
 const RC_ItemImage = styled.img`
-  width: 100%;
+  /* width: 100%; */
   padding: 8px;
   border-radius: 15px;
   box-sizing: border-box;
+  o
+  
 `;
 const Rc_ItemLabel = styled.label`
   font-size: 25px;
@@ -66,7 +76,7 @@ const RecommendationCategoryComponent = () => {
       },
     ];
     return categories.map((category) => (
-      <RC_Item>
+      <RC_Item key={category.label}>
         <RC_ItemImage src={category.src} />
         <Rc_ItemLabel>{category.label} </Rc_ItemLabel>
       </RC_Item>
