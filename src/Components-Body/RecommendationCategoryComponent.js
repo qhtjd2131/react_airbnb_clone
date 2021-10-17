@@ -8,8 +8,15 @@ import category4 from "../images/category4.jpg";
 const largeWidth = "1228px";
 
 const RecommendationCategory = styled.div`
-  padding : 60px 0px;
+  padding: 60px 0px;
   box-sizing: border-box;
+`;
+
+const ContentsWrapper = styled.div`
+  width: inherit;
+  overflow: scroll;
+  scroll-snap-type: x mandatory;
+  
 `;
 const RC_Title = styled.h2`
   font-size: 40px;
@@ -17,18 +24,9 @@ const RC_Title = styled.h2`
 const RC_Contents = styled.div`
   display: flex;
   flex-wrap: nowrap;
-  /* display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 1fr;
-  grid-auto-flow: column; */
-  /* overflow:auto hidden;; */
-  scroll-snap-type: x mandatory;
-  overflow : auto hidden;
 
-  /* grid-auto-columns: 1fr; */
   @media only screen and (max-width: ${largeWidth}) {
-    /* grid-template-columns: repeat(3, 1fr); */
-    /* overflow-x: hidden; */
+    width: 133.3333%;
   }
 `;
 
@@ -43,12 +41,10 @@ const RC_Item = styled.div`
   }
 `;
 const RC_ItemImage = styled.img`
-  /* width: 100%; */
+  width: 100%;
   padding: 8px;
   border-radius: 15px;
   box-sizing: border-box;
-  o
-  
 `;
 const Rc_ItemLabel = styled.label`
   font-size: 25px;
@@ -85,9 +81,11 @@ const RecommendationCategoryComponent = () => {
   return (
     <RecommendationCategory>
       <RC_Title>어디에서나, 여행은 살아보는 거야!</RC_Title>
-      <RC_Contents>
-        <RC_Items />
-      </RC_Contents>
+      <ContentsWrapper>
+        <RC_Contents>
+          <RC_Items />
+        </RC_Contents>
+      </ContentsWrapper>
     </RecommendationCategory>
   );
 };

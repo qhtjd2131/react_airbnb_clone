@@ -7,6 +7,8 @@ const BodyWrapper = styled.section`
   padding: 20px 80px;
   margin: 0;
   width: inherit;
+  overflow : hidden;
+
 `;
 const Body = () => {
   return (
