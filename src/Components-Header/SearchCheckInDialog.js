@@ -11,6 +11,8 @@ import { START_DATE, END_DATE } from "react-dates/src/constants.js";
 const SearchCheckInOutDialogContainer = styled.div`
   width: fit-content;
   height: fit-content;
+  z-index: 990;
+
 `;
 
 const Dialog = styled.dialog`
@@ -22,7 +24,6 @@ const Dialog = styled.dialog`
   box-sizing: border-box;
   margin: 0;
   padding: 30px;
-  visibility: visible;
 `;
 
 const DialogContentsWrapper = styled.div`
