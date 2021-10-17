@@ -43,6 +43,7 @@
     ]
   },
   "devDependencies": {
-    "@fortawesome/react-fontawesome": "^0.1.15"
+    "@fortawesome/react-fontawesome": "^0.1.15",
+    "@types/react-dates": "^21.8.3"
   }
 }
