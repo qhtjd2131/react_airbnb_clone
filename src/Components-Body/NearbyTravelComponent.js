@@ -17,7 +17,7 @@ const NearbyTravelTitle = styled.h2`
 `;
 const NearbyTravelContents = styled.div`
   flex: 1;
-  display: inline-grid;
+  display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 16px;

@@ -3,10 +3,9 @@ import styled from "styled-components";
 import NearbyTravelComponent from "./NearbyTravelComponent";
 import RecommendationCategoryComponent from "./RecommendationCategoryComponent";
 const BodyWrapper = styled.section`
-  padding: 0px 40px;
+  padding: 0px 80px;
   margin: 0;
-  width: 100%;
-  box-sizing:border-box;
+  width: inherit;
 `;
 const Body = () => {
   return (
