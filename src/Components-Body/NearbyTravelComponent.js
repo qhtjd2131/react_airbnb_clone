@@ -70,48 +70,56 @@ const NearbyTravelComponent = () => {
   const NearbyTravelItems = () => {
     const NearbyTravelCities = [
       {
+        id:1,
         cityName: "서울",
         hourByCar: 4,
         src: seoul,
       },
       {
+        id:2,
         cityName: "부산",
         hourByCar: 1.5,
         src: busan,
       },
       {
+        id:3,
         cityName: "대구",
         hourByCar: 1,
         src: daegu,
       },
       {
+        id:4,
         cityName: "서울",
         hourByCar: 4,
         src: seoul,
       },
       {
+        id:5,
         cityName: "부산",
         hourByCar: 1.5,
         src: busan,
       },
       {
+        id:6,
         cityName: "대구",
         hourByCar: 1,
         src: daegu,
       },
       {
+        id:7,
         cityName: "부산",
         hourByCar: 1.5,
         src: busan,
       },
       {
+        id:8,
         cityName: "대구",
         hourByCar: 1,
         src: daegu,
       },
     ];
     return NearbyTravelCities.map((city) => (
-      <NearbyTravelCityItem>
+      <NearbyTravelCityItem key={city.id}>
         <NearbyTravelCityImage src={city.src} />
         <NearbyTravelCityInfo>
           <NearbyTravelCityName>{city.cityName}</NearbyTravelCityName>

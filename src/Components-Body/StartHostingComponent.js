@@ -8,7 +8,8 @@ const StartHosting = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
-  height: 362px;
+  height : 100%;
+  min-height: 362px;
 `;
 const StartHostingContentsWrapper = styled.div`
   width: 324px;
