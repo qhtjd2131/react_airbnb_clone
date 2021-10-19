@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import bg_image from "../images/startHosting.jpg";
+const largeWidth = "1228px";
 
 const StartHosting = styled.div`
   border-radius: 20px;
@@ -8,8 +9,10 @@ const StartHosting = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
-  height : 100%;
-  min-height: 362px;
+  height: 60vh;
+  @media only screen and (max-width: ${largeWidth}) {
+    height: 50vh;
+  }
 `;
 const StartHostingContentsWrapper = styled.div`
   width: 324px;

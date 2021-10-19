@@ -41,7 +41,9 @@ const ItemLabel = styled.label`
   font-weight: 600;
 `;
 
-const ItemSubLabel = styled.label``;
+const ItemSubLabel = styled.label`
+font-size : 17px;
+`;
 
 const RecommendedCategoryComponent = ({ title, itemsInfo }) => {
   const Items = () => {
