@@ -34,6 +34,7 @@ const Body = () => {
       label: "반려동물 동반 가능",
       src: category4,
     },
+
   ];
 
   const title_2 = "특별한 즐길 거리를 찾아보세요";
