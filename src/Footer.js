@@ -13,12 +13,21 @@ const FooterContainer = styled.section`
 const ContentWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+
+  @media only screen and (max-width: ${largeWidth}) {
+    flex-direction: column;
+  }
 `;
 
 const BlockWrapper = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   padding: 0px 20px;
+  @media only screen and (max-width: ${largeWidth}) {
+    padding : 20px 0px;
+    border-bottom :1px solid rgb(221, 221, 221);
+  }
 `;
 
 const Label = styled.label`
@@ -30,6 +39,11 @@ const ListContainer = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
+  @media only screen and (max-width: ${largeWidth}) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+  }
 `;
 
 const List = styled.li`
@@ -46,6 +60,9 @@ const UnderBarContentsWrapper = styled.div`
   border-top: 1px solid rgb(221, 221, 221);
   display: flex;
   align-items: center;
+  @media only screen and (max-width: ${largeWidth}) {
+    border-top : none;
+  }
 `;
 
 const UnderBarContents = styled.div`
@@ -57,7 +74,6 @@ const UnderBarLabel = styled.label`
   margin: 0;
   padding: 0;
   margin-right: 30px;
-
 `;
 
 const UnderBarListContainer = styled.ul`
