@@ -1,4 +1,3 @@
-import { faSortNumericDown } from "@fortawesome/free-solid-svg-icons";
 import React, { createRef, useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 
@@ -59,7 +58,11 @@ const ItemLabel = styled.label`
 `;
 
 const Button = styled.button`
+  margin: 0;
+  padding: 0;
   display: none;
+  border-radius: 50%;
+  background-color: white;
   position: absolute;
   width: 32px;
   height: 32px;
@@ -75,7 +78,8 @@ const Button = styled.button`
 
   ${(props) =>
     props.direction === "right" &&
-    props.visibleDirection === "right" &&
+    (props.visibleDirection === "right" ||
+      props.visibleDirection === "first") &&
     css`
       display: block;
       right: 0%;
@@ -89,7 +93,7 @@ const Button = styled.button`
 
 const RecommendedCategoryComponent = ({ title, itemsInfo }) => {
   const contentsRef = createRef(null);
-  const [visibleDirection, setvisibleDirection] = useState("right");
+  const [visibleDirection, setvisibleDirection] = useState("first");
 
   const Items = () => {
     return itemsInfo.map((item) => (
@@ -100,50 +104,48 @@ const RecommendedCategoryComponent = ({ title, itemsInfo }) => {
     ));
   };
 
-  const scroll = (scrollDirection) => {
-    contentsRef.current.scrollLeft +=
-      (scrollDirection * contentsRef.current.offsetWidth) / 3;
-
-    visibleDirectionHandler();
-  };
+  useEffect(() => {
+    if (visibleDirection === "right") {
+      contentsRef.current.scrollLeft -= contentsRef.current.offsetWidth / 3;
+    } else if (visibleDirection === "left") {
+      contentsRef.current.scrollLeft += contentsRef.current.offsetWidth / 3;
+    }
+  }, [visibleDirection]);
 
   const visibleDirectionHandler = () => {
-    console.log("visibledirection:", visibleDirection);
-    visibleDirection === "right"
-      ? setvisibleDirection("left")
-      : setvisibleDirection("right");
+    visibleDirection === "left"
+      ? setvisibleDirection("right")
+      : setvisibleDirection("left");
   };
 
   return (
-    <RecommendedCategory>
-      {console.log(" rerendering")}
-
-      <Title>{title}</Title>
-      <Box>
-        <Button
-          direction="left"
-          visibleDirection={visibleDirection}
-          onClick={() => scroll(-1)}
-        >
-          {"<"}
-          {console.log("button rerendering")}
-        </Button>
-        <Button
-          direction="right"
-          visibleDirection={visibleDirection}
-          onClick={() => scroll(+1)}
-        >
-          {">"}
-        </Button>
-        <ContentsWrapper ref={contentsRef}>
-          {console.log(" rerendering")}
-
-          <Contents>
-            <Items />
-          </Contents>
-        </ContentsWrapper>
-      </Box>
-    </RecommendedCategory>
+    <>
+      <RecommendedCategory>
+        <Title>{title}</Title>
+        {console.log(visibleDirection)}
+        <Box>
+          <Button
+            direction="left"
+            visibleDirection={visibleDirection}
+            onClick={() => visibleDirectionHandler()}
+          >
+            {"<"}
+          </Button>
+          <Button
+            direction="right"
+            visibleDirection={visibleDirection}
+            onClick={() => visibleDirectionHandler()}
+          >
+            {">"}
+          </Button>
+          <ContentsWrapper ref={contentsRef}>
+            <Contents>
+              <Items />
+            </Contents>
+          </ContentsWrapper>
+        </Box>
+      </RecommendedCategory>
+    </>
   );
 };
 

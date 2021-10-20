@@ -90,8 +90,6 @@ const UnderBarList = styled.li`
 
 const Footer = () => {
   const ListItem = ({ title, items }) => {
-    console.log("title:", title);
-    console.log("items :", items);
 
     return (
       <BlockWrapper>
@@ -108,7 +106,6 @@ const Footer = () => {
   return (
     <FooterContainer>
       <ContentWrapper>
-        {console.log(constants.introduction)}
         <ListItem
           title={constants.introduction_title}
           items={constants.introduction}
