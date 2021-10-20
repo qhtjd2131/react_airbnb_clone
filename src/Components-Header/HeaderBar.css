@@ -1,5 +1,6 @@
 .header-bar {
-  padding: 0 80px;
+  position: relative;
+  padding: 0 60px;
   height: 80px;
   min-width: 850px;
   display: flex;
@@ -10,12 +11,13 @@
 }
 
 .logo-container {
+  width: 300px;
   font-size: 30px;
   font-weight: 700;
   color: white;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   height: 100%;
   cursor: pointer;
 }
@@ -25,12 +27,25 @@
   padding-left: 10px;
   cursor: pointer;
 }
+@media only screen and (max-width: 1228px) {
+  .airbnb_logo_label {
+    display: none;
+  }
+}
+
 
 .searchBar-container {
+  color: white;
+  font-size: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
+.searchbar-sub {
+  display: none;
+}
+
 .searchBar-container .search-state,
 .searchBar-container .selected-search-state {
   text-decoration: none;
@@ -38,6 +53,14 @@
   display: inline-block;
   margin: 0;
   cursor: pointer;
+}
+@media only screen and (max-width: 1070px) {
+  .searchbar-main {
+    display: none;
+  }
+  .searchbar-sub {
+    display: flex;
+  }
 }
 
 .searchBar-container .search-state:hover {

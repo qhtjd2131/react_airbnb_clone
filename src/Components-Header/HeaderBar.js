@@ -2,19 +2,28 @@ import React from "react";
 import "./HeaderBar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAirbnb } from "@fortawesome/free-brands-svg-icons";
-import { faGlobe, faBars, faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faGlobe,
+  faBars,
+  faUserCircle,
+} from "@fortawesome/free-solid-svg-icons";
 
-const HeaderBar = ({target, targetChange}) => {
+const HeaderBar = ({ target, targetChange }) => {
   const AB_LOGO = () => {
     return (
-      <div className="logo-container" onClick={()=>{console.log("click logo")}}>
+      <div
+        className="logo-container"
+        onClick={() => {
+          console.log("click logo");
+        }}
+      >
         <FontAwesomeIcon icon={faAirbnb} />
         <label className="airbnb_logo_label">airbnb</label>
       </div>
     );
   };
 
-  const AB_SEARCH_BAR = () => {
+  const AB_SEARCH_BAR = ({ className }) => {
     const navigations = [
       {
         name: "숙소",
@@ -31,13 +40,16 @@ const HeaderBar = ({target, targetChange}) => {
     ];
     const handleClick = (e) => {
       targetChange(e.target.outerText);
-
     };
     return (
-      <nav className="searchBar-container">
+      <nav className={"searchBar-container " + className}>
         {navigations.map((navigation) => (
           <div
-            className={target===navigation.name ?  "selected-search-state" : "search-state"}
+            className={
+              target === navigation.name
+                ? "selected-search-state"
+                : "search-state"
+            }
             href={navigation.link}
             onClick={handleClick}
             key={navigation.name}
@@ -69,11 +81,14 @@ const HeaderBar = ({target, targetChange}) => {
     );
   };
   return (
-    <div className="header-bar">
-      <AB_LOGO />
-      <AB_SEARCH_BAR />
-      <AB_USER_BAR />
-    </div>
+    <>
+      <div className="header-bar">
+        <AB_LOGO />
+        <AB_SEARCH_BAR className="searchbar-main" />
+        <AB_USER_BAR />
+      </div>
+      <AB_SEARCH_BAR className="searchbar-sub" />
+    </>
   );
 };
 
