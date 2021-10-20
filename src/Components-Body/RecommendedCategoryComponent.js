@@ -62,32 +62,39 @@ const Button = styled.button`
   padding: 0;
   display: none;
   border-radius: 50%;
+  border: 1px solid whitesmoke;
+  box-shadow: 0px 6px 16px rgb(0 0 0 / 15%);
   background-color: white;
   position: absolute;
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   top: 50%;
   transform: translateY(-50%);
-  ${(props) =>
-    props.direction === "left" &&
-    props.visibleDirection === "left" &&
-    css`
-      display: block;
-      left: 0;
-    `}
+  cursor: pointer;
 
-  ${(props) =>
-    props.direction === "right" &&
-    (props.visibleDirection === "right" ||
-      props.visibleDirection === "first") &&
-    css`
-      display: block;
-      right: 0%;
-      /* transform: translate(10%, -50%); */
-    `}
+  &:hover {
+    box-shadow: 0px 6px 16px rgb(0 0 0 / 50%);
+  }
 
-    @media only screen and (max-width: ${largeWidth}) {
-    /* display: block; */
+  @media only screen and (max-width: ${largeWidth}) {
+    ${(props) =>
+      props.direction === "left" &&
+      props.visibleDirection === "left" &&
+      css`
+        display: block;
+        left: 0;
+        transform: translate(-30%, -50%);
+      `}
+
+    ${(props) =>
+      props.direction === "right" &&
+      (props.visibleDirection === "right" ||
+        props.visibleDirection === "first") &&
+      css`
+        display: block;
+        right: 0;
+        transform: translate(30%, -50%);
+      `}
   }
 `;
 

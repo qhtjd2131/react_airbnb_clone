@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import * as constants from "./Constants/footerConstants.js";
+import * as constants from "./Data/footerConstants.js";
 const largeWidth = "1228px";
 
 const FooterContainer = styled.section`
