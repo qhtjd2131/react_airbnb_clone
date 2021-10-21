@@ -117,7 +117,7 @@ const RecommendedCategoryComponent = ({ title, itemsInfo }) => {
     } else if (visibleDirection === "left") {
       contentsRef.current.scrollLeft += contentsRef.current.offsetWidth / 3;
     }
-  }, [visibleDirection]);
+  }, [visibleDirection, contentsRef]);
 
   const visibleDirectionHandler = () => {
     visibleDirection === "left"
