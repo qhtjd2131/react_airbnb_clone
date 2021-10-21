@@ -1,42 +1,43 @@
-.header-bar {
+/* .header-bar {
   position: relative;
   padding: 0 60px;
-  height: 80px;
+  height: 90px;
   min-width: 850px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: white;
-  font-size: 20px;
-}
+  font-size: 17px;
+  font-weight: 600;
+} */
 
-.logo-container {
+/* .logo-container {
   width: 300px;
-  font-size: 30px;
-  font-weight: 700;
+  font-size: 40px;
   color: white;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   height: 100%;
   cursor: pointer;
-}
+} */
 
-.logo-container .airbnb_logo_label {
+/* .logo-container .airbnb_logo_label {
+  font-size: 30px;
   padding-bottom: 10px;
   padding-left: 10px;
   cursor: pointer;
-}
-@media only screen and (max-width: 1228px) {
+} */
+/* @media only screen and (max-width: 1228px) {
   .airbnb_logo_label {
     display: none;
   }
-}
+} */
 
-
-.searchBar-container {
+/* .searchBar-container {
   color: white;
-  font-size: 20px;
+  font-size: 17px;
+  font-weight: 700;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,26 +45,26 @@
 
 .searchbar-sub {
   display: none;
-}
+} */
 
-.searchBar-container .search-state,
+/* .searchBar-container .search-state,
 .searchBar-container .selected-search-state {
   text-decoration: none;
   padding: 20px;
   display: inline-block;
   margin: 0;
   cursor: pointer;
-}
-@media only screen and (max-width: 1070px) {
+} */
+/* @media only screen and (max-width: 1070px) {
   .searchbar-main {
     display: none;
   }
   .searchbar-sub {
     display: flex;
   }
-}
+} */
 
-.searchBar-container .search-state:hover {
+/* .searchBar-container .search-state:hover {
   color: rgb(206, 198, 198);
 }
 .searchBar-container .search-state:after {
@@ -86,9 +87,9 @@
   content: "";
   border-bottom: solid 3px white;
   transition: transform 250ms ease-in-out;
-}
+} */
 
-.user-container {
+/* .user-container {
   width: 300px;
   display: flex;
   justify-content: space-between;
@@ -121,19 +122,19 @@
 .user-icon {
   font-size: 35px;
   cursor: pointer;
-}
-
+} */
+/* 
 .to-be-host:hover,
 .language-setting:hover {
   background-color: rgba(255, 255, 255, 0.1);
-}
+} */
 
-.to-be-host {
+/* .to-be-host {
   padding: 10px;
   border-radius: 20px/50%;
   cursor: pointer;
-}
-.language-setting {
+} */
+/* .language-setting {
   padding: 14px;
   width: 20px;
   height: 20px;
@@ -142,4 +143,4 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-}
+} */
