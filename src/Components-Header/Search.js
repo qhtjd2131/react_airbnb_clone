@@ -159,9 +159,12 @@ const SearchIcon = styled.div`
   }
 
   ${(props) =>
-    props.selectedItem === "none" &&
+    props.selectedItem &&
     css`
+      width: 100px;
+      border-radius: 27px;
       &::after {
+        font-size: 17px;
         content: "검색";
       }
     `}

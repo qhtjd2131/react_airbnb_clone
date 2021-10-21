@@ -100,7 +100,7 @@ const SearchState = styled.div`
       &:after {
         display: block;
         content: "";
-        border-bottom: solid 3px white;
+        border-bottom: solid 2px white;
         transition: transform 250ms ease-in-out;
         transform: scaleX(0.8);
       }
