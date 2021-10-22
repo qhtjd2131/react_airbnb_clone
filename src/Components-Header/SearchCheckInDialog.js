@@ -3,16 +3,14 @@ import styled from "styled-components";
 import "react-dates/initialize";
 import { DayPickerRangeController } from "react-dates";
 import "react-dates/lib/css/_datepicker.css";
-import "./react-dates-style.css";
-import moment from "moment";
+import "./react_dates_overrides.css";
+import moment, { now } from "moment";
 import "moment/locale/ko";
 import { START_DATE, END_DATE } from "react-dates/src/constants.js";
+import { mockComponent } from "react-dom/test-utils";
 
 const SearchCheckInOutDialogContainer = styled.div`
-  width: fit-content;
-  height: fit-content;
   z-index: 990;
-
 `;
 
 const Dialog = styled.dialog`
@@ -22,6 +20,9 @@ const Dialog = styled.dialog`
   width: 1036px;
   height: 600px;
   box-sizing: border-box;
+  border-radius: 30px;
+  border: none;
+  box-shadow: 0px 6px 16px rgb(0 0 0 / 12%);
   margin: 0;
   padding: 30px;
 `;
@@ -35,11 +36,20 @@ const DialogContentsWrapper = styled.div`
   align-items: center;
 `;
 
-const SearchCheckInOutDialog = ({ selectedItem }) => {
-  console.log("checkinout dialog :", selectedItem);
+const SearchCheckInOutDialog = ({
+  selectedItem,
+  startDate,
+  endDate,
+  setStartDate,
+  setEndDate,
+}) => {
+  
   const [focusedInput, setFocusedInput] = useState(START_DATE);
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  // const [startDate, setStartDate] = useState(null);
+  // const [endDate, setEndDate] = useState(null);
+  console.log("startDate:", startDate);
+  console.log("setStartDate :", setStartDate);
+ 
 
   useEffect(() => {
     moment.locale("ko");
@@ -58,6 +68,9 @@ const SearchCheckInOutDialog = ({ selectedItem }) => {
           <DayPickerRangeController
             numberOfMonths={2}
             daySize={64}
+            horizontalMonthPadding={27}
+            isOutsideRange={(day) => day.isBefore(moment().subtract(1, "days"))}
+            monthFormat="YYYY년 MM월"
             startDate={startDate}
             endDate={endDate}
             onDatesChange={({ startDate, endDate }) => {

@@ -73,6 +73,13 @@ const Label = styled.div`
     css`
       color: gray;
     `}
+
+    ${(props) =>
+    props.date &&
+    css`
+      color: black;
+      font-weight: 600;
+    `}
 `;
 
 const ButtonBox = styled.button`
@@ -179,6 +186,8 @@ const SearchIcon = styled.div`
 const Search = ({ search_state }) => {
   const [selectedItem, setSelectedItem] = useState("");
   const SearchBarRef = createRef(null);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -230,9 +239,19 @@ const Search = ({ search_state }) => {
         >
           <ButtonBox>
             <Label state="title">체크인</Label>
-            <Label state="contents">날짜 입력</Label>
+            <Label state="contents" date={startDate}>
+              {startDate
+                ? startDate.get("month") + "월 " + startDate.get("date") + "일"
+                : "날짜 입력"}
+            </Label>
           </ButtonBox>
-          <SearchCheckInOutDialog selectedItem={selectedItem} />
+          <SearchCheckInOutDialog
+            selectedItem={selectedItem}
+            startDate={startDate}
+            endDate={endDate}
+            setStartDate={setStartDate}
+            setEndDate={setEndDate}
+          />
         </ContentWrapper>
 
         {/* ---- */}
@@ -247,7 +266,12 @@ const Search = ({ search_state }) => {
         >
           <ButtonBox>
             <Label state="title">체크아웃</Label>
-            <Label state="contents">날짜 입력</Label>
+            {console.log(startDate)}
+            <Label state="contents" date={endDate}>
+              {endDate
+                ? endDate.get("month") + "월 " + endDate.get("date") + "일"
+                : "날짜 입력"}
+            </Label>
           </ButtonBox>
           {/* <SearchCheckInOutDialog selectedItem={selectedItem} /> */}
         </ContentWrapper>
