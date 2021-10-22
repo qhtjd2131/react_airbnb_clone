@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { createRef, useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -178,10 +178,30 @@ const SearchIcon = styled.div`
 
 const Search = ({ search_state }) => {
   const [selectedItem, setSelectedItem] = useState("");
+  const SearchBarRef = createRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (SearchBarRef.current) {
+        if (!SearchBarRef.current.contains(e.target)) {
+          setSelectedItem(null);
+        }
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [SearchBarRef]);
 
   return (
     <SearchContainer>
-      <SearchBar search_state={search_state} selectedItem={selectedItem}>
+      <SearchBar
+        search_state={search_state}
+        selectedItem={selectedItem}
+        ref={SearchBarRef}
+      >
         <ContentWrapper
           search_state={search_state}
           visible_state="all"
