@@ -27,6 +27,12 @@ const SearchBar = styled.div`
     css`
       grid-template-columns: 1fr 1fr;
     `}
+
+  ${(props) =>
+    props.selectedItem &&
+    css`
+      grid-template-columns: 6fr 4fr 4fr 6fr;
+    `}
 `;
 
 const Input = styled.input`
@@ -149,14 +155,14 @@ const SearchIcon = styled.div`
   font-size: 27px;
   justify-content: center;
   align-items: center;
-  background-color: #e64a19;
+  background-color: #fe365b;
   border-radius: 50%;
   color: white;
   cursor: pointer;
 
-  &:hover {
+  /* &:hover {
     background-color: #ac0800;
-  }
+  } */
 
   ${(props) =>
     props.selectedItem &&
@@ -172,12 +178,10 @@ const SearchIcon = styled.div`
 
 const Search = ({ search_state }) => {
   const [selectedItem, setSelectedItem] = useState("");
-  //   const [isOpenCheckInOutDialog, setisOpenCheckInOutDialog] = useState(false);
-  //   const [isFirstOpen, setIsFirstOpen] = useState(true);
 
   return (
     <SearchContainer>
-      <SearchBar search_state={search_state}>
+      <SearchBar search_state={search_state} selectedItem={selectedItem}>
         <ContentWrapper
           search_state={search_state}
           visible_state="all"
@@ -229,7 +233,6 @@ const Search = ({ search_state }) => {
         </ContentWrapper>
         {/* ---- */}
         <ContentWrapper
-          // state="button"
           search_state={search_state}
           visible_state="숙소"
           isSelectedItem={selectedItem === "인원" ? true : false}

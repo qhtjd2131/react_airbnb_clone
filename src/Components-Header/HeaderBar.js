@@ -13,7 +13,6 @@ const HeaderBarContainer = styled.div`
   position: relative;
   padding: 0 60px;
   height: 90px;
-  min-width: 850px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -229,21 +228,6 @@ const HeaderBar = ({ target, targetChange }) => {
           </UserIcon>
         </UserWrapper>
       </UserContainer>
-      // <div className="user-container">
-      //   <div className="to-be-host">호스트 되기</div>
-      //   <div className="language-setting">
-      //     <FontAwesomeIcon icon={faGlobe} />
-      //   </div>
-      //   <div className="user-data">
-      //     <div className="user-menu">
-      //       <FontAwesomeIcon icon={faBars} />
-      //     </div>
-
-      //     <div className="user-icon">
-      //       <FontAwesomeIcon icon={faUserCircle} />
-      //     </div>
-      //   </div>
-      // </div>
     );
   };
   return (
