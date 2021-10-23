@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./HeaderBar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAirbnb } from "@fortawesome/free-brands-svg-icons";
@@ -8,6 +8,7 @@ import {
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import styled, { css } from "styled-components";
+import UserMenuDialog from "./UserMenuDialog";
 
 const HeaderBarContainer = styled.div`
   position: relative;
@@ -149,7 +150,8 @@ const UserWrapper = styled.div`
   background-color: white;
   color: gray;
   padding: 10px 10px;
-  border-radius: 55px;
+  border-radius: 50px;
+  cursor: pointer;
 `;
 const UserMenu = styled.div`
   display: flex;
@@ -157,16 +159,15 @@ const UserMenu = styled.div`
   align-items: center;
   font-size: 20px;
   padding: 0px;
-  cursor: pointer;
 `;
 const UserIcon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 35px;
-  cursor: pointer;
 `;
 const HeaderBar = ({ target, targetChange }) => {
+  const [isSelectedMenu, setIsSelectedMenu] = useState(false);
   const AB_LOGO = () => {
     return (
       <LogoContainer>
@@ -218,11 +219,16 @@ const HeaderBar = ({ target, targetChange }) => {
         <LanguageSetting>
           <FontAwesomeIcon icon={faGlobe} />
         </LanguageSetting>
-        <UserWrapper>
+        <UserMenuDialog isSelectedMenu={isSelectedMenu} />
+
+        <UserWrapper
+          onClick={() =>
+            isSelectedMenu ? setIsSelectedMenu(false) : setIsSelectedMenu(true)
+          }
+        >
           <UserMenu>
             <FontAwesomeIcon icon={faBars} />
           </UserMenu>
-
           <UserIcon>
             <FontAwesomeIcon icon={faUserCircle} />
           </UserIcon>
