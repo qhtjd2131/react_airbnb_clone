@@ -4,10 +4,9 @@ import "react-dates/initialize";
 import { DayPickerRangeController } from "react-dates";
 import "react-dates/lib/css/_datepicker.css";
 import "./react_dates_overrides.css";
-import moment, { now } from "moment";
+import moment from "moment";
 import "moment/locale/ko";
-import { START_DATE, END_DATE } from "react-dates/src/constants.js";
-import { mockComponent } from "react-dom/test-utils";
+import { START_DATE } from "react-dates/src/constants.js";
 
 const SearchCheckInOutDialogContainer = styled.div`
   z-index: 990;
@@ -16,7 +15,7 @@ const SearchCheckInOutDialogContainer = styled.div`
 const Dialog = styled.dialog`
   position: absolute;
   top: 100px;
-  left: -330px;
+  left: -312px;
   width: 1036px;
   height: 600px;
   box-sizing: border-box;
@@ -43,12 +42,8 @@ const SearchCheckInOutDialog = ({
   setStartDate,
   setEndDate,
 }) => {
-  
+
   const [focusedInput, setFocusedInput] = useState(START_DATE);
-  // const [startDate, setStartDate] = useState(null);
-  // const [endDate, setEndDate] = useState(null);
-  console.log("startDate:", startDate);
-  console.log("setStartDate :", setStartDate);
  
 
   useEffect(() => {
@@ -74,18 +69,14 @@ const SearchCheckInOutDialog = ({
             startDate={startDate}
             endDate={endDate}
             onDatesChange={({ startDate, endDate }) => {
-              console.log("onDatesChange excute-------------------------");
-              console.log("startDate :", startDate);
-              console.log("endDate :", endDate);
-              console.log("---------------------------------------------");
+              
               setStartDate(startDate);
               setEndDate(endDate);
             }}
             focusedInput={focusedInput}
             onFocusChange={(focusedInput) => {
               setFocusedInput(!focusedInput ? START_DATE : focusedInput);
-              console.log("onFocusChange----------------");
-              console.log("focusedInput :", focusedInput);
+            
             }}
             initialVisibleMonth={() => moment()}
           />

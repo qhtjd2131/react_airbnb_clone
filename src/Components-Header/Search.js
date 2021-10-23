@@ -4,6 +4,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchWhereDialog from "./SearchWhereDialog";
 import SearchCheckInOutDialog from "./SearchCheckInDialog";
+import SearchAddGuestDialog from "./SearchAddGuestDialog";
 
 const SearchContainer = styled.div`
   width: 100%;
@@ -266,7 +267,6 @@ const Search = ({ search_state }) => {
         >
           <ButtonBox>
             <Label state="title">체크아웃</Label>
-            {console.log(startDate)}
             <Label state="contents" date={endDate}>
               {endDate
                 ? endDate.get("month") + "월 " + endDate.get("date") + "일"
@@ -288,6 +288,7 @@ const Search = ({ search_state }) => {
             <Label state="title">인원</Label>
             <Label state="contents">게스트 추가</Label>
           </ButtonBox>
+          <SearchAddGuestDialog selectedItem={selectedItem}/>
         </ContentWrapper>
         {/* ---- */}
         <ContentWrapper
