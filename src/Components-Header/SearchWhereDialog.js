@@ -1,12 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-const SearchWhereDialogContainer = styled.div`
-  width: fit-content;
-  height: fit-content;
-`;
+const SearchWhereDialogContainer = styled.div``;
 const Dialog = styled.dialog`
   position: absolute;
+
   top: 100px;
   width: 600px;
   height: 200px;
@@ -16,6 +14,7 @@ const Dialog = styled.dialog`
   box-shadow: 0px 6px 16px rgb(0 0 0 / 30%);
   box-sizing: border-box;
   padding: 30px;
+  z-index: 999;
 `;
 
 const DialogContentsWrapper = styled.div`
@@ -41,24 +40,25 @@ const Button = styled.button`
   color: purple;
   font-size: 25px;
   font-weight: 700;
-  text-align : start;
-  box-sizing : border-box;
-  padding : 0px 20px;
-  display : flex;
-  justify-content : space-between;
-  align-items : center;
+  text-align: start;
+  box-sizing: border-box;
+  padding: 0px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   cursor: pointer;
 
-  &::after{
-      content : ">";
-      font-weight : 700;
+  &::after {
+    content: ">";
+    font-weight: 700;
   }
 `;
 
-const SearchWhereDialog = ({selectedItem}) => {
+const SearchWhereDialog = ({ selectedItem }) => {
   return (
     <SearchWhereDialogContainer>
-      <Dialog open={selectedItem==="위치" ? true : false}>
+      {console.log("hi", selectedItem)}
+      <Dialog open={selectedItem === "위치" ? true : false}>
         <DialogContentsWrapper>
           <Label>언제 어디로든 떠나는 여행</Label>
           <Button>유연한 검색</Button>

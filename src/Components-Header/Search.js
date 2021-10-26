@@ -20,9 +20,7 @@ const SearchBar = styled.div`
   height: 70px;
   margin: 0 120px;
   min-width: 90%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  
 
   background-color: #f7f7f7;
   border-radius: 30px / 50%;
@@ -69,6 +67,10 @@ const Label = styled.div`
   color: black;
   font-size: 18px;
   text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
   ${(props) =>
     props.state === "title" &&
     css`
@@ -225,6 +227,7 @@ const Search = ({ search_state, isOverScrollY, setIsOverScrollY }) => {
 
   return (
     <SearchContainer>
+      {console.log(selectedItem)}
       <SearchBar
         search_state={search_state}
         selectedItem={selectedItem}
