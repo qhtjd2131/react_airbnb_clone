@@ -8,11 +8,11 @@ import moment from "moment";
 import "moment/locale/ko";
 import { START_DATE } from "react-dates/src/constants.js";
 
-const SearchCheckInOutDialogContainer = styled.div`
-  z-index: 990;
-`;
+const SearchCheckInOutDialogContainer = styled.div``;
 
 const Dialog = styled.dialog`
+  z-index: 990;
+
   position: absolute;
   top: 100px;
   left: -312px;
@@ -42,9 +42,7 @@ const SearchCheckInOutDialog = ({
   setStartDate,
   setEndDate,
 }) => {
-
   const [focusedInput, setFocusedInput] = useState(START_DATE);
- 
 
   useEffect(() => {
     moment.locale("ko");
@@ -69,14 +67,12 @@ const SearchCheckInOutDialog = ({
             startDate={startDate}
             endDate={endDate}
             onDatesChange={({ startDate, endDate }) => {
-              
               setStartDate(startDate);
               setEndDate(endDate);
             }}
             focusedInput={focusedInput}
             onFocusChange={(focusedInput) => {
               setFocusedInput(!focusedInput ? START_DATE : focusedInput);
-            
             }}
             initialVisibleMonth={() => moment()}
           />

@@ -17,7 +17,6 @@ const SearchBar = styled.div`
   position: relative;
   height: 70px;
   margin: 0 120px;
-  width: fit-content;
   min-width: 1020px;
   background-color: #f7f7f7;
   border-radius: 30px / 50%;
@@ -31,7 +30,7 @@ const SearchBar = styled.div`
 
   ${(props) =>
     props.selectedItem &&
-    !props.search_state === "체험" &&
+    !(props.search_state === "체험") &&
     css`
       grid-template-columns: 6fr 4fr 4fr 6fr;
     `}
