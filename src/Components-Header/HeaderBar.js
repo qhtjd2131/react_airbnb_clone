@@ -144,6 +144,7 @@ const LanguageSetting = styled.div`
   }
 `;
 const UserWrapper = styled.div`
+  position: relative;
   width: 70px;
   display: flex;
   justify-content: space-around;
@@ -219,16 +220,21 @@ const HeaderBar = ({ target, targetChange }) => {
         <LanguageSetting>
           <FontAwesomeIcon icon={faGlobe} />
         </LanguageSetting>
-        <UserMenuDialog isSelectedMenu={isSelectedMenu} />
 
         <UserWrapper
           onClick={() =>
-            isSelectedMenu ? setIsSelectedMenu(false) : setIsSelectedMenu(true)
+            // isSelectedMenu ? setIsSelectedMenu(false) : setIsSelectedMenu(true)
+            setIsSelectedMenu(true)
           }
         >
           <UserMenu>
             <FontAwesomeIcon icon={faBars} />
+            <UserMenuDialog
+              isSelectedMenu={isSelectedMenu}
+              setIsSelectedMenu={setIsSelectedMenu}
+            />
           </UserMenu>
+
           <UserIcon>
             <FontAwesomeIcon icon={faUserCircle} />
           </UserIcon>

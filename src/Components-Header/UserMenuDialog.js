@@ -1,14 +1,50 @@
-import React from "react";
-import styled from "styled-components";
+import React, { createRef, useEffect } from "react";
+import styled, { css } from "styled-components";
 
 const UserMenuDialogCotainer = styled.div``;
 const Dialog = styled.dialog`
-z-index:2;
+  position: absolute;
+  transform: translateX(-100%);
+  top: 60px;
+  left: 90px;
+  z-index: 992;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0px 6px 16px rgb(0 0 0 / 12%);
+  font-weight: 400;
+  padding: 0;
+  font-size: 19px;
 `;
-const ContentsWrapper = styled.div``;
-const MenuItem = styled.div``;
+const ContentsWrapper = styled.div`
+  padding: 20px 0px;
+  margin: 0;
+`;
+const MenuItem = styled.div`
+  width: 300px;
+  padding: 10px 20px;
+  cursor: pointer;
+  box-sizing: border-box;
 
-const UserMenuDialog = ({ isSelectedMenu }) => {
+  ${(props) =>
+    props.title === "회원가입" &&
+    css`
+      font-weight: 700;
+    `}
+
+  &:hover {
+    background-color: whitesmoke;
+  }
+`;
+
+const Line = styled.div`
+  height: 1px;
+  width: 100%;
+  background-color: gray;
+  margin: 10px 0px;
+  cursor: none;
+`;
+
+const UserMenuDialog = ({ isSelectedMenu, setIsSelectedMenu }) => {
   const datas = [
     {
       id: 1,
@@ -20,31 +56,57 @@ const UserMenuDialog = ({ isSelectedMenu }) => {
     },
     {
       id: 3,
-      title: "숙소 호스트하기",
+      title: "Line",
     },
     {
       id: 4,
-      title: "체험 호스팅하기",
+      title: "숙소 호스트하기",
     },
     {
       id: 5,
+      title: "체험 호스팅하기",
+    },
+    {
+      id: 6,
       title: "도움말",
     },
   ];
 
+  const DialogRef = createRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (DialogRef) {
+        if (!DialogRef.current.contains(e.target)) setIsSelectedMenu(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [DialogRef]);
+
   const MenuItems = () => {
-    return datas.map((data) => <MenuItem>{data.title}</MenuItem>);
+    return datas.map((data) =>
+      data.title === "Line" ? (
+        <Line key={data.id} />
+      ) : (
+        <MenuItem key={data.id} title={data.title}>
+          {data.title}
+        </MenuItem>
+      )
+    );
   };
   return (
     <UserMenuDialogCotainer>
-      <Dialog open={isSelectedMenu}>
+      <Dialog open={isSelectedMenu} ref={DialogRef}>
         <ContentsWrapper>
-            <MenuItems/>
+          <MenuItems />
         </ContentsWrapper>
       </Dialog>
     </UserMenuDialogCotainer>
   );
 };
-
 
 export default UserMenuDialog;

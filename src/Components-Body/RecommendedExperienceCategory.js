@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-const largeWidth = "1228px";
-
 const RecommendedCategory = styled.div`
   padding: 60px 0px;
   box-sizing: border-box;
@@ -42,7 +40,7 @@ const ItemLabel = styled.label`
 `;
 
 const ItemSubLabel = styled.label`
-font-size : 17px;
+  font-size: 17px;
 `;
 
 const RecommendedCategoryComponent = ({ title, itemsInfo }) => {
