@@ -31,6 +31,7 @@ const SearchBar = styled.div`
 
   ${(props) =>
     props.selectedItem &&
+    !props.search_state === "체험" &&
     css`
       grid-template-columns: 6fr 4fr 4fr 6fr;
     `}
@@ -288,7 +289,7 @@ const Search = ({ search_state }) => {
             <Label state="title">인원</Label>
             <Label state="contents">게스트 추가</Label>
           </ButtonBox>
-          <SearchAddGuestDialog selectedItem={selectedItem}/>
+          <SearchAddGuestDialog selectedItem={selectedItem} />
         </ContentWrapper>
         {/* ---- */}
         <ContentWrapper
