@@ -9,9 +9,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import styled, { css } from "styled-components";
 import UserMenuDialog from "./UserMenuDialog";
+import Search from "./Search";
 
 const HeaderBarContainer = styled.div`
   position: relative;
+`;
+const ContentsWrapper = styled.div`
   padding: 0 60px;
   height: 90px;
   display: flex;
@@ -46,27 +49,17 @@ const LogoLabel = styled.label`
 
 const SearchBarContainer = styled.nav`
   color: white;
-
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 
-  ${(props) =>
-    props.isMain === "main" &&
-    css`
-      @media only screen and (max-width: 1070px) {
-        display: none;
-      }
-    `}
-  ${(props) =>
-    props.isMain === "sub" &&
-    css`
-      display: none;
-
-      @media only screen and (max-width: 1070px) {
-        display: flex;
-      }
-    `}
+  @media only screen and (max-width: 1070px) {
+    top: 90px;
+  }
 `;
 
 const SearchState = styled.div`
@@ -115,13 +108,13 @@ const SearchState = styled.div`
 `;
 
 const UserContainer = styled.div`
-  width: 300px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
 const ToBeHost = styled.div`
+  width: 100px;
   padding: 10px;
   border-radius: 20px/50%;
   cursor: pointer;
@@ -167,7 +160,12 @@ const UserIcon = styled.div`
   align-items: center;
   font-size: 35px;
 `;
-const HeaderBar = ({ target, targetChange }) => {
+const HeaderBar = ({
+  target,
+  targetChange,
+  isOverScrollY,
+  setIsOverScrollY,
+}) => {
   const [isSelectedMenu, setIsSelectedMenu] = useState(false);
   const AB_LOGO = () => {
     return (
@@ -178,7 +176,7 @@ const HeaderBar = ({ target, targetChange }) => {
     );
   };
 
-  const AB_SEARCH_BAR = ({ isMain }) => {
+  const AB_SEARCH_BAR = () => {
     const navigations = [
       {
         name: "숙소",
@@ -197,7 +195,7 @@ const HeaderBar = ({ target, targetChange }) => {
       targetChange(e.target.outerText);
     };
     return (
-      <SearchBarContainer key={isMain} isMain={isMain}>
+      <SearchBarContainer>
         {navigations.map((navigation) => (
           <SearchState
             target={target}
@@ -209,6 +207,11 @@ const HeaderBar = ({ target, targetChange }) => {
             {navigation.name}
           </SearchState>
         ))}
+        <Search
+          search_state={target}
+          isOverScrollY={isOverScrollY}
+          setIsOverScrollY={setIsOverScrollY}
+        />
       </SearchBarContainer>
     );
   };
@@ -243,14 +246,13 @@ const HeaderBar = ({ target, targetChange }) => {
     );
   };
   return (
-    <>
-      <HeaderBarContainer>
+    <HeaderBarContainer>
+      <ContentsWrapper>
         <AB_LOGO />
-        <AB_SEARCH_BAR isMain="main" />
+        <AB_SEARCH_BAR />
         <AB_USER_BAR />
-      </HeaderBarContainer>{" "}
-      <AB_SEARCH_BAR isMain="sub" />
-    </>
+      </ContentsWrapper>
+    </HeaderBarContainer>
   );
 };
 

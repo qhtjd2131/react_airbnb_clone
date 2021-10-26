@@ -7,6 +7,8 @@ import SearchCheckInOutDialog from "./SearchCheckInDialog";
 import SearchAddGuestDialog from "./SearchAddGuestDialog";
 
 const SearchContainer = styled.div`
+  position: absolute;
+  top: 100px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -17,7 +19,11 @@ const SearchBar = styled.div`
   position: relative;
   height: 70px;
   margin: 0 120px;
-  min-width: 1020px;
+  min-width: 90%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
   background-color: #f7f7f7;
   border-radius: 30px / 50%;
   display: grid;
@@ -60,8 +66,8 @@ const InputBox = styled.div`
   justify-content: center;
 `;
 const Label = styled.div`
+  color: black;
   font-size: 18px;
-  width: 100%;
   text-align: left;
   ${(props) =>
     props.state === "title" &&
@@ -103,6 +109,7 @@ const ContentWrapper = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
+
   justify-content: center;
   border-radius: 30px / 50%;
   border: none;
@@ -119,7 +126,7 @@ const ContentWrapper = styled.div`
     align-items: center;
     justify-content: center;
     height: 60%;
-    width: 2px;
+    width: 1px;
     margin: 0;
     margin-right: 6px;
     padding: 0;
@@ -184,7 +191,7 @@ const SearchIcon = styled.div`
     `}
 `;
 
-const Search = ({ search_state }) => {
+const Search = ({ search_state, isOverScrollY, setIsOverScrollY }) => {
   const [selectedItem, setSelectedItem] = useState("");
   const SearchBarRef = createRef(null);
   const [startDate, setStartDate] = useState(null);
@@ -198,10 +205,21 @@ const Search = ({ search_state }) => {
         }
       }
     };
-    document.addEventListener("mousedown", handleClickOutside);
 
+    const handleScrollEvent = () => {
+      if (window.scrollY > 10) {
+        setIsOverScrollY(true);
+        // console.log(isOverScrollY);
+      } else {
+        setIsOverScrollY(false);
+        // console.log(isOverScrollY);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("scroll", handleScrollEvent);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("scroll", handleScrollEvent);
     };
   }, [SearchBarRef]);
 
@@ -228,7 +246,6 @@ const Search = ({ search_state }) => {
         </ContentWrapper>
 
         {/* ---- */}
-
         <ContentWrapper
           // state="button"
           search_state={search_state}
@@ -273,7 +290,6 @@ const Search = ({ search_state }) => {
                 : "날짜 입력"}
             </Label>
           </ButtonBox>
-          {/* <SearchCheckInOutDialog selectedItem={selectedItem} /> */}
         </ContentWrapper>
         {/* ---- */}
         <ContentWrapper

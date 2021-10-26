@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import FlexibleSearch from "./FlexibleSearch";
 import "./Header.css";
 import HeaderBar from "./HeaderBar.js";
-import Search from "./Search.js";
 
 const Header = () => {
   const [target, setTarget] = useState("숙소");
+  const [isOverScrollY, setIsOverScrollY] = useState(false);
 
   const targetChange = (text) => {
     setTarget(text);
@@ -13,8 +13,17 @@ const Header = () => {
 
   return (
     <div className="header-container">
-      <HeaderBar targetChange={targetChange} target={target} />
-      <Search search_state={target} />
+      <HeaderBar
+        targetChange={targetChange}
+        target={target}
+        isOverScrollY={isOverScrollY}
+        setIsOverScrollY={setIsOverScrollY}
+      />
+      {/* <Search
+        search_state={target}
+        isOverScrollY={isOverScrollY}
+        setIsOverScrollY={setIsOverScrollY}
+      /> */}
       <FlexibleSearch />
     </div>
   );
