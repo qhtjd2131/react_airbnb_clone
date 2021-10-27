@@ -24,8 +24,8 @@ const ContentsWrapper = styled.div`
   scroll-snap-type: x mandatory;
 
   &::-webkit-scrollbar {
-    /* display: none;
-    scrollbar-width: none; */
+    display: none;
+    scrollbar-width: none;
   }
 `;
 
@@ -40,11 +40,14 @@ const Contents = styled.div`
 `;
 
 const Item = styled.div`
-  flex: 0 0 33.333333%;
+  flex: 0 0 25%;
   display: flex;
   flex-direction: column;
   scroll-snap-align: start;
   width: 100%;
+  @media only screen and (max-width: ${largeWidth}) {
+    flex: 0 0 33.333333%;
+  }
 `;
 
 const ItemImage = styled.img`
@@ -62,7 +65,7 @@ const ItemLabel = styled.label`
 const Button = styled.button`
   margin: 0;
   padding: 0;
-  display: none;
+  display: block;
   border-radius: 50%;
   border: 1px solid whitesmoke;
   box-shadow: 0px 6px 16px rgb(0 0 0 / 15%);
@@ -81,7 +84,7 @@ const Button = styled.button`
   @media only screen and (max-width: ${largeWidth}) {
     ${(props) =>
       props.direction === "left" &&
-      props.visibleDirection === "left" &&
+      // props.visibleDirection === "left" &&
       css`
         display: block;
         left: 0;
@@ -90,8 +93,8 @@ const Button = styled.button`
 
     ${(props) =>
       props.direction === "right" &&
-      (props.visibleDirection === "right" ||
-        props.visibleDirection === "first") &&
+      // (props.visibleDirection === "right" ||
+      //   props.visibleDirection === "first") &&
       css`
         display: block;
         right: 0;
@@ -101,8 +104,10 @@ const Button = styled.button`
 `;
 
 const RecommendedCategoryComponent = ({ title, itemsInfo }) => {
-  const contentsRef = createRef(null);
+  const contentsWrapperRef = createRef(null);
   const [visibleDirection, setvisibleDirection] = useState("first");
+  const itemsInfoLength = Object.keys(itemsInfo).length;
+  console.log(itemsInfoLength);
 
   // const Items = () => {
   //   return ;
@@ -110,11 +115,13 @@ const RecommendedCategoryComponent = ({ title, itemsInfo }) => {
 
   useEffect(() => {
     if (visibleDirection === "right") {
-      contentsRef.current.scrollLeft -= contentsRef.current.offsetWidth / 3;
+      contentsWrapperRef.current.scrollLeft -=
+        contentsWrapperRef.current.offsetWidth / 3;
     } else if (visibleDirection === "left") {
-      contentsRef.current.scrollLeft += contentsRef.current.offsetWidth / 3;
+      contentsWrapperRef.current.scrollLeft +=
+        contentsWrapperRef.current.offsetWidth / 3;
     }
-  }, [visibleDirection, contentsRef]);
+  }, [visibleDirection, contentsWrapperRef]);
 
   const visibleDirectionHandler = () => {
     visibleDirection === "left"
@@ -141,10 +148,10 @@ const RecommendedCategoryComponent = ({ title, itemsInfo }) => {
         >
           {">"}
         </Button>
-        <ContentsWrapper ref={contentsRef}>
+        <ContentsWrapper ref={contentsWrapperRef}>
           {/* <Contents> */}
-          {[...itemsInfo, ...itemsInfo].map((item, index) => (
-            <Item key={`${(item.label, index)}`}>
+          {[...itemsInfo].map((item, index) => (
+            <Item key={`${index}`}>
               <ItemImage src={item.src} />
               <ItemLabel>{item.label} </ItemLabel>
             </Item>
