@@ -5,7 +5,6 @@ import HeaderBar from "./HeaderBar.js";
 
 const Header = () => {
   const [target, setTarget] = useState("숙소");
-  const [isOverScrollY, setIsOverScrollY] = useState(false);
 
   const targetChange = (text) => {
     setTarget(text);
@@ -16,8 +15,8 @@ const Header = () => {
       <HeaderBar
         targetChange={targetChange}
         target={target}
-        isOverScrollY={isOverScrollY}
-        setIsOverScrollY={setIsOverScrollY}
+        // isOverScrollY={isOverScrollY}
+        // setIsOverScrollY={setIsOverScrollY}
       />
       {/* <Search
         search_state={target}

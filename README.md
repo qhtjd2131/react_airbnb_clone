@@ -100,3 +100,7 @@ media query로 반응형 웹을 구상하는 중에 반응의 기준점이 되�
 }
 
 styled components 를 사용하면 해결 가능한 문제이지만, 그렇다고 하더라도 전역변수를 담당하는 file을 import 해야하는 문제가 있다. 따라서 css preprocesser (SCSS, SASS) 를 권장한다고 한다. 다음 프로젝트에서 사용해 볼 예정이다.
+
+--
+체크인아웃 을 클릭 했을때 나타나는 다이얼로그 화면에서 날짜를 선택하면 startDate, endDate 라는 state가 변경된다. 변경된 state는 체크인아웃 컴포넌트의 label 을 변경하게된다. 하지만 그 부모 컴포넌트인 HeaderBar 컴포넌트 아래에 있는 state가 변경 될때마다 label에 나타나는 startDate, endDate가 초기화 되는 오류를 찾았다. 오류를 살펴보니, 특정 부모 Component 의 state가 변경되어 re-rendering 되었을때, 그 아래 존재하던 자식 Components가 unmount 되는 오류가 발생하였다. 
+ 정상적인 구조의 react라면 부모의 state가 변경되었다고해서 자식이 unmount 되는 일은 없다. 그래서 부모 컴포넌트 내에 자식 컴포넌트를 선언해 주고 있던 구조가 문제라고 생각했고 그 생각은 맞았다. 부모컴포넌트 내에 정의된 컴포넌트들은 부모가 re-rendering 될때마다 재 선언을 하게 되었고 그 결과 모든 자식 컴포넌트가 ummonut 되었다가 mount 되어 state가 초기화되는 문제였다. 따라서 컴포넌트 내에 컴포넌트를 선언하는 구조의 심각한 문제성을 깨달았으며, 비슷한 방식으로 선언된 모든 컴포넌트를 독립적으로 정의하였다.

@@ -1,10 +1,12 @@
-import React, { createRef, useEffect, useState } from "react";
+import React, { createRef, useEffect, useState, useContext } from "react";
 import styled, { css } from "styled-components";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchWhereDialog from "./SearchWhereDialog";
 import SearchCheckInOutDialog from "./SearchCheckInDialog";
 import SearchAddGuestDialog from "./SearchAddGuestDialog";
+import {IsOverScrollYContext} from "./HeaderBar"
+
 
 const SearchContainer = styled.div`
   position: absolute;
@@ -13,6 +15,8 @@ const SearchContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  ${(props) => props.isOverScrollY && css`
+  `}
 `;
 
 const SearchBar = styled.div`
@@ -20,7 +24,6 @@ const SearchBar = styled.div`
   height: 70px;
   margin: 0 120px;
   min-width: 90%;
-  
 
   background-color: #f7f7f7;
   border-radius: 30px / 50%;
@@ -70,7 +73,7 @@ const Label = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  
+
   ${(props) =>
     props.state === "title" &&
     css`
@@ -193,7 +196,8 @@ const SearchIcon = styled.div`
     `}
 `;
 
-const Search = ({ search_state, isOverScrollY, setIsOverScrollY }) => {
+const Search = ({ search_state }) => {
+  const { isOverScrollY, setIsOverScrollY } = useContext(IsOverScrollYContext);
   const [selectedItem, setSelectedItem] = useState("");
   const SearchBarRef = createRef(null);
   const [startDate, setStartDate] = useState(null);
@@ -207,9 +211,8 @@ const Search = ({ search_state, isOverScrollY, setIsOverScrollY }) => {
         }
       }
     };
-
     const handleScrollEvent = () => {
-      if (window.scrollY > 10) {
+      if (window.scrollY > 1) {
         setIsOverScrollY(true);
         // console.log(isOverScrollY);
       } else {
@@ -226,8 +229,7 @@ const Search = ({ search_state, isOverScrollY, setIsOverScrollY }) => {
   }, [SearchBarRef]);
 
   return (
-    <SearchContainer>
-      {console.log(selectedItem)}
+    <SearchContainer isOverScrollY={isOverScrollY}>
       <SearchBar
         search_state={search_state}
         selectedItem={selectedItem}
@@ -250,7 +252,6 @@ const Search = ({ search_state, isOverScrollY, setIsOverScrollY }) => {
 
         {/* ---- */}
         <ContentWrapper
-          // state="button"
           search_state={search_state}
           visible_state="숙소"
           isSelectedItem={selectedItem === "체크인" ? true : false}
@@ -277,7 +278,6 @@ const Search = ({ search_state, isOverScrollY, setIsOverScrollY }) => {
 
         {/* ---- */}
         <ContentWrapper
-          // state="button"
           search_state={search_state}
           visible_state="숙소"
           isSelectedItem={selectedItem === "체크아웃" ? true : false}
@@ -311,7 +311,6 @@ const Search = ({ search_state, isOverScrollY, setIsOverScrollY }) => {
         </ContentWrapper>
         {/* ---- */}
         <ContentWrapper
-          // state="button"
           search_state={search_state}
           visible_state="체험"
           isSelectedItem={selectedItem === "날짜" ? true : false}

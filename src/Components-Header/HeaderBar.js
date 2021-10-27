@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect, createRef } from "react";
 import "./HeaderBar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAirbnb } from "@fortawesome/free-brands-svg-icons";
@@ -13,6 +13,16 @@ import Search from "./Search";
 
 const HeaderBarContainer = styled.div`
   position: relative;
+  ${(props) =>
+    props.isOverScrollY &&
+    css`
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 995;
+      // background-color : white;
+    `}
 `;
 const ContentsWrapper = styled.div`
   padding: 0 60px;
@@ -34,6 +44,11 @@ const LogoContainer = styled.div`
   justify-content: flex-start;
   height: 100%;
   cursor: pointer;
+  ${(props) =>
+    props.isOverScrollY &&
+    css`
+      color: red;
+    `}
 `;
 
 const LogoLabel = styled.label`
@@ -160,97 +175,124 @@ const UserIcon = styled.div`
   align-items: center;
   font-size: 35px;
 `;
-const HeaderBar = ({
-  target,
-  targetChange,
-  isOverScrollY,
-  setIsOverScrollY,
-}) => {
-  const [isSelectedMenu, setIsSelectedMenu] = useState(false);
-  const AB_LOGO = () => {
-    return (
-      <LogoContainer>
-        <FontAwesomeIcon icon={faAirbnb} />
-        <LogoLabel>airbnb</LogoLabel>
-      </LogoContainer>
-    );
-  };
 
-  const AB_SEARCH_BAR = () => {
-    const navigations = [
-      {
-        name: "숙소",
-        link: "#!",
-      },
-      {
-        name: "체험",
-        link: "#!",
-      },
-      {
-        name: "온라인 체험",
-        link: "#!",
-      },
-    ];
-    const handleClick = (e) => {
-      targetChange(e.target.outerText);
-    };
-    return (
-      <SearchBarContainer>
-        {navigations.map((navigation) => (
-          <SearchState
-            target={target}
-            stateName={navigation.name}
-            href={navigation.link}
-            onClick={handleClick}
-            key={navigation.name}
-          >
-            {navigation.name}
-          </SearchState>
-        ))}
-        <Search
-          search_state={target}
-          isOverScrollY={isOverScrollY}
-          setIsOverScrollY={setIsOverScrollY}
-        />
-      </SearchBarContainer>
-    );
-  };
+export const SelectedItemContext = React.createContext({});
+export const IsOverScrollYContext = React.createContext({});
 
-  const AB_USER_BAR = () => {
-    return (
-      <UserContainer>
-        <ToBeHost>호스트 되기</ToBeHost>
-        <LanguageSetting>
-          <FontAwesomeIcon icon={faGlobe} />
-        </LanguageSetting>
-
-        <UserWrapper
-          onClick={() =>
-            // isSelectedMenu ? setIsSelectedMenu(false) : setIsSelectedMenu(true)
-            setIsSelectedMenu(true)
-          }
-        >
-          <UserMenu>
-            <FontAwesomeIcon icon={faBars} />
-            <UserMenuDialog
-              isSelectedMenu={isSelectedMenu}
-              setIsSelectedMenu={setIsSelectedMenu}
-            />
-          </UserMenu>
-
-          <UserIcon>
-            <FontAwesomeIcon icon={faUserCircle} />
-          </UserIcon>
-        </UserWrapper>
-      </UserContainer>
-    );
+const AB_SEARCH_BAR = ({ target, targetChange }) => {
+  const { isOverScrollY, setIsOverScrollY } = useContext(IsOverScrollYContext);
+  const navigations = [
+    {
+      name: "숙소",
+      link: "#!",
+    },
+    {
+      name: "체험",
+      link: "#!",
+    },
+    {
+      name: "온라인 체험",
+      link: "#!",
+    },
+  ];
+  const handleClick = (e) => {
+    targetChange(e.target.outerText);
   };
   return (
-    <HeaderBarContainer>
+    <SearchBarContainer>
+      {navigations.map((navigation) => (
+        <SearchState
+          target={target}
+          stateName={navigation.name}
+          href={navigation.link}
+          onClick={handleClick}
+          key={navigation.name}
+        >
+          {navigation.name}
+        </SearchState>
+      ))}
+      <Search search_state={target} />
+    </SearchBarContainer>
+  );
+};
+
+const AB_LOGO = ({ isOverScrollY }) => {
+  return (
+    <LogoContainer isOverScrollY={isOverScrollY}>
+      <FontAwesomeIcon icon={faAirbnb} />
+      <LogoLabel>airbnb</LogoLabel>
+    </LogoContainer>
+  );
+};
+
+const AB_USER_BAR = () => {
+  const { isSelectedMenu, setIsSelectedMenu } = useContext(SelectedItemContext);
+  const UserWrapperRef = createRef(null);
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (UserWrapperRef.current) {
+        if (!UserWrapperRef.current.contains(e.target)) {
+          setIsSelectedMenu(false);
+          console.log("outside click");
+        }
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [UserWrapperRef]);
+  return (
+    <UserContainer>
+      <ToBeHost>호스트 되기</ToBeHost>
+      <LanguageSetting>
+        <FontAwesomeIcon icon={faGlobe} />
+      </LanguageSetting>
+
+      <UserWrapper
+        onClick={() =>
+          isSelectedMenu ? setIsSelectedMenu(false) : setIsSelectedMenu(true)
+          // setIsSelectedMenu(true)
+        }
+        ref={UserWrapperRef}
+      >
+        <UserMenuDialog
+          isSelectedMenu={isSelectedMenu}
+          setIsSelectedMenu={setIsSelectedMenu}
+        />
+        <UserMenu>
+          <FontAwesomeIcon icon={faBars} />
+        </UserMenu>
+
+        <UserIcon>
+          <FontAwesomeIcon icon={faUserCircle} />
+        </UserIcon>
+      </UserWrapper>
+    </UserContainer>
+  );
+};
+
+const HeaderBar = ({ target, targetChange }) => {
+  const [isSelectedMenu, setIsSelectedMenu] = useState(false);
+  const [isOverScrollY, setIsOverScrollY] = useState(false);
+  // 1. react -> context, useContext
+  // 2. global state management -> redux, mobx
+
+  return (
+    <HeaderBarContainer isOverScrollY={isOverScrollY}>
       <ContentsWrapper>
-        <AB_LOGO />
-        <AB_SEARCH_BAR />
-        <AB_USER_BAR />
+        <IsOverScrollYContext.Provider
+          value={{ isOverScrollY, setIsOverScrollY }}
+        >
+          <SelectedItemContext.Provider
+            value={{ isSelectedMenu, setIsSelectedMenu }}
+          >
+            <AB_LOGO isOverScrollY={isOverScrollY} />
+            <AB_SEARCH_BAR target={target} targetChange={targetChange} />
+            <AB_USER_BAR />
+          </SelectedItemContext.Provider>
+        </IsOverScrollYContext.Provider>
       </ContentsWrapper>
     </HeaderBarContainer>
   );

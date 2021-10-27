@@ -17,28 +17,30 @@ const Title = styled.h2`
 
 const ContentsWrapper = styled.div`
   width: inherit;
+  display: flex;
   overflow: scroll;
   scroll-behavior: smooth;
   box-sizing: border-box;
   scroll-snap-type: x mandatory;
 
   &::-webkit-scrollbar {
-    display: none;
-    scrollbar-width: none;
+    /* display: none;
+    scrollbar-width: none; */
   }
 `;
 
 const Contents = styled.div`
   display: flex;
+  overflow: scroll;
   box-sizing: border-box;
-
   @media only screen and (max-width: ${largeWidth}) {
-    width: 133.3333%;
+    // width: 133.3333%;
     /* width: 200%; */
   }
 `;
 
 const Item = styled.div`
+  flex: 0 0 33.333333%;
   display: flex;
   flex-direction: column;
   scroll-snap-align: start;
@@ -102,14 +104,9 @@ const RecommendedCategoryComponent = ({ title, itemsInfo }) => {
   const contentsRef = createRef(null);
   const [visibleDirection, setvisibleDirection] = useState("first");
 
-  const Items = () => {
-    return itemsInfo.map((item) => (
-      <Item key={item.label}>
-        <ItemImage src={item.src} />
-        <ItemLabel>{item.label} </ItemLabel>
-      </Item>
-    ));
-  };
+  // const Items = () => {
+  //   return ;
+  // };
 
   useEffect(() => {
     if (visibleDirection === "right") {
@@ -126,33 +123,36 @@ const RecommendedCategoryComponent = ({ title, itemsInfo }) => {
   };
 
   return (
-    <>
-      <RecommendedCategory>
-        <Title>{title}</Title>
-        {console.log(visibleDirection)}
-        <Box>
-          <Button
-            direction="left"
-            visibleDirection={visibleDirection}
-            onClick={() => visibleDirectionHandler()}
-          >
-            {"<"}
-          </Button>
-          <Button
-            direction="right"
-            visibleDirection={visibleDirection}
-            onClick={() => visibleDirectionHandler()}
-          >
-            {">"}
-          </Button>
-          <ContentsWrapper ref={contentsRef}>
-            <Contents>
-              <Items />
-            </Contents>
-          </ContentsWrapper>
-        </Box>
-      </RecommendedCategory>
-    </>
+    <RecommendedCategory>
+      <Title>{title}</Title>
+      {console.log(visibleDirection)}
+      <Box>
+        <Button
+          direction="left"
+          visibleDirection={visibleDirection}
+          onClick={() => visibleDirectionHandler()}
+        >
+          {"<"}
+        </Button>
+        <Button
+          direction="right"
+          visibleDirection={visibleDirection}
+          onClick={() => visibleDirectionHandler()}
+        >
+          {">"}
+        </Button>
+        <ContentsWrapper ref={contentsRef}>
+          {/* <Contents> */}
+          {[...itemsInfo, ...itemsInfo].map((item, index) => (
+            <Item key={`${(item.label, index)}`}>
+              <ItemImage src={item.src} />
+              <ItemLabel>{item.label} </ItemLabel>
+            </Item>
+          ))}
+          {/* </Contents> */}
+        </ContentsWrapper>
+      </Box>
+    </RecommendedCategory>
   );
 };
 

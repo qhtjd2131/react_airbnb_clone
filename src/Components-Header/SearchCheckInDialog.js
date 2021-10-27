@@ -8,11 +8,13 @@ import moment from "moment";
 import "moment/locale/ko";
 import { START_DATE } from "react-dates/src/constants.js";
 
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 const SearchCheckInOutDialogContainer = styled.div``;
 
 const Dialog = styled.dialog`
   z-index: 990;
-
   position: absolute;
   top: 100px;
   left: -312px;
@@ -75,6 +77,7 @@ const SearchCheckInOutDialog = ({
               setFocusedInput(!focusedInput ? START_DATE : focusedInput);
             }}
             initialVisibleMonth={() => moment()}
+            
           />
         </DialogContentsWrapper>
       </Dialog>

@@ -43,8 +43,7 @@ const Line = styled.div`
   margin: 10px 0px;
   cursor: none;
 `;
-
-const UserMenuDialog = ({ isSelectedMenu, setIsSelectedMenu }) => {
+const MenuItems = () => {
   const datas = [
     {
       id: 1,
@@ -71,36 +70,38 @@ const UserMenuDialog = ({ isSelectedMenu, setIsSelectedMenu }) => {
       title: "도움말",
     },
   ];
+  return datas.map((data) =>
+    data.title === "Line" ? (
+      <Line key={data.id} />
+    ) : (
+      <MenuItem key={data.id} title={data.title}>
+        {data.title}
+      </MenuItem>
+    )
+  );
+};
+const UserMenuDialog = ({ isSelectedMenu, setIsSelectedMenu }) => {
+  // const DialogRef = createRef(null);
 
-  const DialogRef = createRef(null);
+  // useEffect(() => {
+  //   const handleClickOutside = (e) => {
+  //     if (DialogRef.current) {
+      
+  //       if (!DialogRef.current.contains(e.target)) {
+  //         setIsSelectedMenu(false);
+  //       }
+  //     }
+  //   };
 
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (DialogRef) {
-        if (!DialogRef.current.contains(e.target)) setIsSelectedMenu(false);
-      }
-    };
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, [DialogRef]);
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [DialogRef]);
-
-  const MenuItems = () => {
-    return datas.map((data) =>
-      data.title === "Line" ? (
-        <Line key={data.id} />
-      ) : (
-        <MenuItem key={data.id} title={data.title}>
-          {data.title}
-        </MenuItem>
-      )
-    );
-  };
   return (
     <UserMenuDialogCotainer>
-      <Dialog open={isSelectedMenu} ref={DialogRef}>
+      <Dialog open={isSelectedMenu}>
         <ContentsWrapper>
           <MenuItems />
         </ContentsWrapper>

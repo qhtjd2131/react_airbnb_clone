@@ -4,7 +4,6 @@ import styled from "styled-components";
 const SearchWhereDialogContainer = styled.div``;
 const Dialog = styled.dialog`
   position: absolute;
-
   top: 100px;
   width: 600px;
   height: 200px;
@@ -57,7 +56,6 @@ const Button = styled.button`
 const SearchWhereDialog = ({ selectedItem }) => {
   return (
     <SearchWhereDialogContainer>
-      {console.log("hi", selectedItem)}
       <Dialog open={selectedItem === "위치" ? true : false}>
         <DialogContentsWrapper>
           <Label>언제 어디로든 떠나는 여행</Label>
