@@ -1,4 +1,4 @@
-import React, { createRef, useEffect, useState } from "react";
+import React, { createRef, useCallback, useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 
 const largeWidth = "1228px";
@@ -101,6 +101,26 @@ const Button = styled.button`
       display: none;
     `}
     ${(props) =>
+    props.direction === "left" &&
+    props.invisibleDirection === "left" &&
+    css`
+      display: none;
+    `}
+
+    ${(props) =>
+    props.direction === "right" &&
+    props.invisibleDirection === "right" &&
+    css`
+      display: none;
+    `}
+
+  @media only screen and (max-width: ${largeWidth}) {
+    ${(props) =>
+      props.itemsInfoLength > 3 &&
+      css`
+        display: block;
+      `}
+    ${(props) =>
       props.direction === "left" &&
       props.invisibleDirection === "left" &&
       css`
@@ -113,64 +133,52 @@ const Button = styled.button`
       css`
         display: none;
       `}
-
-  @media only screen and (max-width: ${largeWidth}) {
-    ${(props) =>
-      props.itemsInfoLength > 3 &&
-      css`
-        display: block;
-      `}
-      ${(props) =>
-        props.direction === "left" &&
-        props.invisibleDirection === "left" &&
-        css`
-          display: none;
-        `}
-
-    ${(props) =>
-      props.direction === "right" &&
-      props.invisibleDirection === "right" &&
-      css`
-        display: none;
-      `}
+  }
 `;
 
 const RecommendedCategoryComponent = ({ title, itemsInfo }) => {
   const contentsWrapperRef = createRef(null);
   const [invisibleDirection, setInvisibleDirection] = useState("left");
   const itemsInfoLength = Object.keys(itemsInfo).length;
+  console.log(itemsInfoLength);
 
-  useEffect(() => {
-    // if (invisibleDirection === "right") {
-    //   contentsWrapperRef.current.scrollLeft -=
-    //     contentsWrapperRef.current.offsetWidth / 3;
-    // } else if (invisibleDirection === "left") {
-    //   contentsWrapperRef.current.scrollLeft +=
-    //     contentsWrapperRef.current.offsetWidth / 3;
-    // }
-  }, [invisibleDirection, contentsWrapperRef]);
-
-  const buttonLeftDirectionHandler = () => {
-    if (contentsWrapperRef.current.scrollLeft === 0) {
+  const buttonLeftDirectionHandler = useCallback(() => {
+    const a = contentsWrapperRef.current.firstChild.offsetWidth;
+    if (
+      0 <= contentsWrapperRef.current.scrollLeft &&
+      contentsWrapperRef.current.scrollLeft < a + 10
+    ) {
       setInvisibleDirection("left");
       console.log("left end");
     }
     contentsWrapperRef.current.scrollLeft -=
-      contentsWrapperRef.current.offsetWidth / 3;
-  };
+      contentsWrapperRef.current.firstChild.offsetWidth;
+  }, [contentsWrapperRef]);
 
-  const buttonRightDirectionHandler = () => {
-    if (
-      contentsWrapperRef.current.scrollLeft ===
+  const buttonRightDirectionHandler = useCallback(() => {
+    console.log(contentsWrapperRef.current.scrollWidth);
+    console.log(contentsWrapperRef.current.firstChild.offsetWidth);
+    console.log(contentsWrapperRef.current.offsetWidth);
+
+    const a =
       contentsWrapperRef.current.scrollWidth -
-        contentsWrapperRef.current.offsetWidth
+      contentsWrapperRef.current.firstChild.offsetWidth -
+      contentsWrapperRef.current.offsetWidth;
+
+    console.log("a :", a);
+    console.log(contentsWrapperRef.current.scrollLeft);
+
+    if (
+      a - 10 < contentsWrapperRef.current.scrollLeft &&
+      contentsWrapperRef.current.scrollLeft < a + 10
     ) {
       setInvisibleDirection("right");
       console.log("right end");
     }
+
     contentsWrapperRef.current.scrollLeft +=
-      contentsWrapperRef.current.offsetWidth / 3;
-  };
+      contentsWrapperRef.current.firstChild.offsetWidth;
+  }, [contentsWrapperRef]);
 
   return (
     <RecommendedCategory>
@@ -195,7 +203,7 @@ const RecommendedCategoryComponent = ({ title, itemsInfo }) => {
         <ContentsWrapper ref={contentsWrapperRef}>
           {/* <Contents> */}
           {[...itemsInfo].map((item, index) => (
-            <Item key={`${index}`}>
+            <Item key={index}>
               <ItemImage src={item.src} />
               <ItemLabel>{item.label} </ItemLabel>
             </Item>
