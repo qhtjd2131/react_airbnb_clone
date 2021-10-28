@@ -34,22 +34,22 @@ const Body = () => {
       label: "반려동물 동반 가능",
       src: category4,
     },
-    {
-      label: "자연생활을 만끽할 수 있는 숙소",
-      src: category1,
-    },
-    {
-      label: "독특한 공간",
-      src: category2,
-    },
-    {
-      label: "집 전체",
-      src: category3,
-    },
-    {
-      label: "반려동물 동반 가능",
-      src: category4,
-    },
+    // {
+    //   label: "자연생활을 만끽할 수 있는 숙소",
+    //   src: category1,
+    // },
+    // {
+    //   label: "독특한 공간",
+    //   src: category2,
+    // },
+    // {
+    //   label: "집 전체",
+    //   src: category3,
+    // },
+    // {
+    //   label: "반려동물 동반 가능",
+    //   src: category4,
+    // },
   ];
 
   const title_2 = "특별한 즐길 거리를 찾아보세요";

@@ -81,70 +81,114 @@ const Button = styled.button`
     box-shadow: 0px 6px 16px rgb(0 0 0 / 50%);
   }
 
-  @media only screen and (max-width: ${largeWidth}) {
+  ${(props) =>
+    props.direction === "left" &&
+    css`
+      left: 0;
+      transform: translate(-30%, -50%);
+    `}
+
+  ${(props) =>
+    props.direction === "right" &&
+    css`
+      right: 0;
+      transform: translate(30%, -50%);
+    `}
+
+  ${(props) =>
+    props.itemsInfoLength < 5 &&
+    css`
+      display: none;
+    `}
     ${(props) =>
       props.direction === "left" &&
-      // props.visibleDirection === "left" &&
+      props.invisibleDirection === "left" &&
       css`
-        display: block;
-        left: 0;
-        transform: translate(-30%, -50%);
+        display: none;
       `}
 
     ${(props) =>
       props.direction === "right" &&
-      // (props.visibleDirection === "right" ||
-      //   props.visibleDirection === "first") &&
+      props.invisibleDirection === "right" &&
+      css`
+        display: none;
+      `}
+
+  @media only screen and (max-width: ${largeWidth}) {
+    ${(props) =>
+      props.itemsInfoLength > 3 &&
       css`
         display: block;
-        right: 0;
-        transform: translate(30%, -50%);
       `}
-  }
+      ${(props) =>
+        props.direction === "left" &&
+        props.invisibleDirection === "left" &&
+        css`
+          display: none;
+        `}
+
+    ${(props) =>
+      props.direction === "right" &&
+      props.invisibleDirection === "right" &&
+      css`
+        display: none;
+      `}
 `;
 
 const RecommendedCategoryComponent = ({ title, itemsInfo }) => {
   const contentsWrapperRef = createRef(null);
-  const [visibleDirection, setvisibleDirection] = useState("first");
+  const [invisibleDirection, setInvisibleDirection] = useState("left");
   const itemsInfoLength = Object.keys(itemsInfo).length;
-  console.log(itemsInfoLength);
-
-  // const Items = () => {
-  //   return ;
-  // };
 
   useEffect(() => {
-    if (visibleDirection === "right") {
-      contentsWrapperRef.current.scrollLeft -=
-        contentsWrapperRef.current.offsetWidth / 3;
-    } else if (visibleDirection === "left") {
-      contentsWrapperRef.current.scrollLeft +=
-        contentsWrapperRef.current.offsetWidth / 3;
-    }
-  }, [visibleDirection, contentsWrapperRef]);
+    // if (invisibleDirection === "right") {
+    //   contentsWrapperRef.current.scrollLeft -=
+    //     contentsWrapperRef.current.offsetWidth / 3;
+    // } else if (invisibleDirection === "left") {
+    //   contentsWrapperRef.current.scrollLeft +=
+    //     contentsWrapperRef.current.offsetWidth / 3;
+    // }
+  }, [invisibleDirection, contentsWrapperRef]);
 
-  const visibleDirectionHandler = () => {
-    visibleDirection === "left"
-      ? setvisibleDirection("right")
-      : setvisibleDirection("left");
+  const buttonLeftDirectionHandler = () => {
+    if (contentsWrapperRef.current.scrollLeft === 0) {
+      setInvisibleDirection("left");
+      console.log("left end");
+    }
+    contentsWrapperRef.current.scrollLeft -=
+      contentsWrapperRef.current.offsetWidth / 3;
+  };
+
+  const buttonRightDirectionHandler = () => {
+    if (
+      contentsWrapperRef.current.scrollLeft ===
+      contentsWrapperRef.current.scrollWidth -
+        contentsWrapperRef.current.offsetWidth
+    ) {
+      setInvisibleDirection("right");
+      console.log("right end");
+    }
+    contentsWrapperRef.current.scrollLeft +=
+      contentsWrapperRef.current.offsetWidth / 3;
   };
 
   return (
     <RecommendedCategory>
       <Title>{title}</Title>
-      {console.log(visibleDirection)}
       <Box>
         <Button
           direction="left"
-          visibleDirection={visibleDirection}
-          onClick={() => visibleDirectionHandler()}
+          invisibleDirection={invisibleDirection}
+          itemsInfoLength={itemsInfoLength}
+          onClick={() => buttonLeftDirectionHandler()}
         >
           {"<"}
         </Button>
         <Button
           direction="right"
-          visibleDirection={visibleDirection}
-          onClick={() => visibleDirectionHandler()}
+          invisibleDirection={invisibleDirection}
+          itemsInfoLength={itemsInfoLength}
+          onClick={() => buttonRightDirectionHandler()}
         >
           {">"}
         </Button>
