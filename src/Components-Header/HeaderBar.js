@@ -203,16 +203,24 @@ const UserIcon = styled.div`
 const OpenButtonContainer = styled.div`
   position: absolute;
   transition: 0.1s ease-in-out;
-  top: 0;
-  z-index: 1;
+
   /* transition-duration: 0.5s; */
-  ${(props) => props.openSearchBarInOverScroll && css``}
+  top: 100px;
+  transform: scale(2, 1);
+  z-index: -1;
+
   ${(props) =>
-    !props.isOverScrollY &&
+    props.isOverScrollY &&
     css`
-      top: 100px;
-      transform: scale(2, 1);
-      z-index: -1;
+      top: 0;
+      z-index: 1;
+      transform: scale(1, 1);
+      ${props.openSearchBarInOverScroll &&
+      css`
+        top: 100px;
+        transform: scale(2, 1);
+        z-index: -1;
+      `}
     `};
 `;
 const SearchBarOpenButton = styled.div`
@@ -231,14 +239,14 @@ const SearchBarOpenButton = styled.div`
     box-shadow: 0px 1px 2px rgb(0 0 0 / 8%), 0px 4px 12px rgb(0 0 0 /15%);
   }
 `;
+
 export const SelectedItemContext = React.createContext({});
 export const IsOverScrollYContext = React.createContext({});
-
-const SearchBarOpen = (
-  openSearchBarInOverScroll,
-  setOpenSearchBarInOverScroll
-) => {
+export const openSearchBarInOverScrollContext = React.createContext({});
+const SearchBarOpen = () => {
   const { isOverScrollY, setIsOverScrollY } = useContext(IsOverScrollYContext);
+  const { openSearchBarInOverScroll, setOpenSearchBarInOverScroll } =
+    useContext(openSearchBarInOverScrollContext);
 
   return (
     <OpenButtonContainer
@@ -246,20 +254,23 @@ const SearchBarOpen = (
       setOpenSearchBarInOverScroll={setOpenSearchBarInOverScroll}
       isOverScrollY={isOverScrollY}
     >
-      <SearchBarOpenButton onClick={() => {}}>
+      <SearchBarOpenButton
+        onClick={() =>
+          openSearchBarInOverScroll
+            ? setOpenSearchBarInOverScroll(false)
+            : setOpenSearchBarInOverScroll(true)
+        }
+      >
         검색 시작하기
       </SearchBarOpenButton>
     </OpenButtonContainer>
   );
 };
 
-const AB_SEARCH_BAR = ({
-  target,
-  targetChange,
-  openSearchBarInOverScroll,
-  setOpenSearchBarInOverScroll,
-}) => {
+const AB_SEARCH_BAR = ({ target, targetChange }) => {
   const { isOverScrollY } = useContext(IsOverScrollYContext);
+  const { openSearchBarInOverScroll, setOpenSearchBarInOverScroll } =
+    useContext(openSearchBarInOverScrollContext);
   const navigations = [
     {
       name: "숙소",
@@ -278,7 +289,11 @@ const AB_SEARCH_BAR = ({
     targetChange(e.target.outerText);
   };
   return (
-    <SearchBarContainer isOverScrollY={isOverScrollY}>
+    <SearchBarContainer
+      isOverScrollY={isOverScrollY}
+      openSearchBarInOverScroll={openSearchBarInOverScroll}
+      setOpenSearchBarInOverScroll={setOpenSearchBarInOverScroll}
+    >
       {navigations.map((navigation) => (
         <SearchState
           target={target}
@@ -291,7 +306,11 @@ const AB_SEARCH_BAR = ({
           {navigation.name}
         </SearchState>
       ))}
-      <Search search_state={target} />
+      <Search
+        search_state={target}
+        openSearchBarInOverScroll={openSearchBarInOverScroll}
+        setOpenSearchBarInOverScroll={setOpenSearchBarInOverScroll}
+      />
       <SearchBarOpen
         openSearchBarInOverScroll={openSearchBarInOverScroll}
         setOpenSearchBarInOverScroll={setOpenSearchBarInOverScroll}
@@ -314,6 +333,7 @@ const AB_LOGO = () => {
 const AB_USER_BAR = () => {
   const { isSelectedMenu, setIsSelectedMenu } = useContext(SelectedItemContext);
   const { isOverScrollY, setIsOverScrollY } = useContext(IsOverScrollYContext);
+
   const UserWrapperRef = createRef(null);
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -377,14 +397,21 @@ const HeaderBar = ({ target, targetChange }) => {
           <SelectedItemContext.Provider
             value={{ isSelectedMenu, setIsSelectedMenu }}
           >
-            <AB_LOGO />
-            <AB_SEARCH_BAR
-              target={target}
-              targetChange={targetChange}
-              openSearchBarInOverScroll={openSearchBarInOverScroll}
-              setOpenSearchBarInOverScroll={setOpenSearchBarInOverScroll}
-            />
-            <AB_USER_BAR />
+            <openSearchBarInOverScrollContext.Provider
+              value={{
+                openSearchBarInOverScroll,
+                setOpenSearchBarInOverScroll,
+              }}
+            >
+              <AB_LOGO />
+              <AB_SEARCH_BAR
+                target={target}
+                targetChange={targetChange}
+                openSearchBarInOverScroll={openSearchBarInOverScroll}
+                setOpenSearchBarInOverScroll={setOpenSearchBarInOverScroll}
+              />
+              <AB_USER_BAR />
+            </openSearchBarInOverScrollContext.Provider>
           </SelectedItemContext.Provider>
         </IsOverScrollYContext.Provider>
       </ContentsWrapper>

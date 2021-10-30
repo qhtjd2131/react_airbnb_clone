@@ -6,6 +6,7 @@ import SearchWhereDialog from "./SearchWhereDialog";
 import SearchCheckInOutDialog from "./SearchCheckInDialog";
 import SearchAddGuestDialog from "./SearchAddGuestDialog";
 import { IsOverScrollYContext } from "./HeaderBar";
+import { openSearchBarInOverScrollContext } from "./HeaderBar";
 
 const SearchContainer = styled.div`
   position: absolute;
@@ -21,8 +22,14 @@ const SearchContainer = styled.div`
     css`
       top: 0;
       color: black;
-      transform: scale(0.2, 0.5);
-      
+      transform: scale(0, 0);
+
+      ${(props) =>
+        props.openSearchBarInOverScroll &&
+        css`
+          top: 100px;
+          transform: scale(1, 1);
+        `}
     `}
 `;
 
@@ -209,6 +216,8 @@ const Search = ({ search_state }) => {
   const SearchBarRef = createRef(null);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const { openSearchBarInOverScroll, setOpenSearchBarInOverScroll } =
+    useContext(openSearchBarInOverScrollContext);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -221,9 +230,12 @@ const Search = ({ search_state }) => {
     const handleScrollEvent = () => {
       if (window.scrollY > 30) {
         setIsOverScrollY(true);
+        setOpenSearchBarInOverScroll(false);
         // console.log(isOverScrollY);
       } else {
         setIsOverScrollY(false);
+        setOpenSearchBarInOverScroll(false);
+
         // console.log(isOverScrollY);
       }
     };
@@ -236,7 +248,10 @@ const Search = ({ search_state }) => {
   }, [SearchBarRef]);
 
   return (
-    <SearchContainer isOverScrollY={isOverScrollY}>
+    <SearchContainer
+      isOverScrollY={isOverScrollY}
+      openSearchBarInOverScroll={openSearchBarInOverScroll}
+    >
       <SearchBar
         search_state={search_state}
         selectedItem={selectedItem}
