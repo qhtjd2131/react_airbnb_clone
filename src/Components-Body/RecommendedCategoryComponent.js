@@ -40,13 +40,13 @@ const Contents = styled.div`
 `;
 
 const Item = styled.div`
-  flex: 0 0 25%;
+  flex: 0 0 25%;  //4개의 item이 display
   display: flex;
   flex-direction: column;
   scroll-snap-align: start;
   width: 100%;
   @media only screen and (max-width: ${largeWidth}) {
-    flex: 0 0 33.333333%;
+    flex: 0 0 33.333333%; //3개의 item이 display
   }
 `;
 
@@ -159,14 +159,13 @@ const RecommendedCategoryComponent = ({ title, itemsInfo }) => {
     // console.log(contentsWrapperRef.current.scrollWidth);
     // console.log(contentsWrapperRef.current.firstChild.offsetWidth);
     // console.log(contentsWrapperRef.current.offsetWidth);
-
     const a =
       contentsWrapperRef.current.scrollWidth -
       contentsWrapperRef.current.firstChild.offsetWidth -
       contentsWrapperRef.current.offsetWidth;
 
-    console.log("a :", a);
-    console.log(contentsWrapperRef.current.scrollLeft);
+    // console.log("a :", a);
+    // console.log(contentsWrapperRef.current.scrollLeft);
 
     if (
       a - 10 < contentsWrapperRef.current.scrollLeft &&

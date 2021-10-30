@@ -5,8 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchWhereDialog from "./SearchWhereDialog";
 import SearchCheckInOutDialog from "./SearchCheckInDialog";
 import SearchAddGuestDialog from "./SearchAddGuestDialog";
-import {IsOverScrollYContext} from "./HeaderBar"
-
+import { IsOverScrollYContext } from "./HeaderBar";
 
 const SearchContainer = styled.div`
   position: absolute;
@@ -15,8 +14,16 @@ const SearchContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  ${(props) => props.isOverScrollY && css`
-  `}
+  transition: 0.1s;
+
+  ${(props) =>
+    props.isOverScrollY &&
+    css`
+      top: 0;
+      color: black;
+      transform: scale(0.2, 0.5);
+      
+    `}
 `;
 
 const SearchBar = styled.div`
@@ -212,7 +219,7 @@ const Search = ({ search_state }) => {
       }
     };
     const handleScrollEvent = () => {
-      if (window.scrollY > 1) {
+      if (window.scrollY > 30) {
         setIsOverScrollY(true);
         // console.log(isOverScrollY);
       } else {

@@ -21,7 +21,7 @@ const HeaderBarContainer = styled.div`
       left: 0;
       right: 0;
       z-index: 995;
-      // background-color : white;
+      background-color: white;
     `}
 `;
 const ContentsWrapper = styled.div`
@@ -71,10 +71,20 @@ const SearchBarContainer = styled.nav`
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-
-  @media only screen and (max-width: 1070px) {
-    top: 90px;
-  }
+  ${(props) =>
+    !props.isOverScrollY &&
+    css`
+      @media only screen and (max-width: 1070px) {
+        top: 90px;
+      }
+    `}
+  ${(props) =>
+    props.isOverScrollY &&
+    css`
+      @media only screen and (max-width: 1070px) {
+        left: 300px;
+      }
+    `}
 `;
 
 const SearchState = styled.div`
@@ -120,12 +130,22 @@ const SearchState = styled.div`
         color: white;
       }
     `}
+  ${(props) =>
+    props.isOverScrollY &&
+    css`
+      color: black;
+    `}
 `;
 
 const UserContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  ${(props) =>
+    props.isOverScrollY &&
+    css`
+      color: black;
+    `}
 `;
 
 const ToBeHost = styled.div`
@@ -161,6 +181,11 @@ const UserWrapper = styled.div`
   padding: 10px 10px;
   border-radius: 50px;
   cursor: pointer;
+  ${(props) =>
+    props.isOverScrollY &&
+    css`
+      border: 1px solid gray;
+    `}
 `;
 const UserMenu = styled.div`
   display: flex;
@@ -175,12 +200,66 @@ const UserIcon = styled.div`
   align-items: center;
   font-size: 35px;
 `;
-
+const OpenButtonContainer = styled.div`
+  position: absolute;
+  transition: 0.1s ease-in-out;
+  top: 0;
+  z-index: 1;
+  /* transition-duration: 0.5s; */
+  ${(props) => props.openSearchBarInOverScroll && css``}
+  ${(props) =>
+    !props.isOverScrollY &&
+    css`
+      top: 100px;
+      transform: scale(2, 1);
+      z-index: -1;
+    `};
+`;
+const SearchBarOpenButton = styled.div`
+  display: flex;
+  align-items: center;
+  border-radius: 45px;
+  border: 1px solid #dddddd;
+  box-shadow: 0px 1px 2px rgb(0 0 0 / 8%), 0px 4px 12px rgb(0 0 0 / 5%);
+  width: 30vw;
+  padding: 18px 20px;
+  background-color: white;
+  color: black;
+  transition: box-shadow 0.2s ease;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0px 1px 2px rgb(0 0 0 / 8%), 0px 4px 12px rgb(0 0 0 /15%);
+  }
+`;
 export const SelectedItemContext = React.createContext({});
 export const IsOverScrollYContext = React.createContext({});
 
-const AB_SEARCH_BAR = ({ target, targetChange }) => {
+const SearchBarOpen = (
+  openSearchBarInOverScroll,
+  setOpenSearchBarInOverScroll
+) => {
   const { isOverScrollY, setIsOverScrollY } = useContext(IsOverScrollYContext);
+
+  return (
+    <OpenButtonContainer
+      openSearchBarInOverScroll={openSearchBarInOverScroll}
+      setOpenSearchBarInOverScroll={setOpenSearchBarInOverScroll}
+      isOverScrollY={isOverScrollY}
+    >
+      <SearchBarOpenButton onClick={() => {}}>
+        검색 시작하기
+      </SearchBarOpenButton>
+    </OpenButtonContainer>
+  );
+};
+
+const AB_SEARCH_BAR = ({
+  target,
+  targetChange,
+  openSearchBarInOverScroll,
+  setOpenSearchBarInOverScroll,
+}) => {
+  const { isOverScrollY } = useContext(IsOverScrollYContext);
   const navigations = [
     {
       name: "숙소",
@@ -199,7 +278,7 @@ const AB_SEARCH_BAR = ({ target, targetChange }) => {
     targetChange(e.target.outerText);
   };
   return (
-    <SearchBarContainer>
+    <SearchBarContainer isOverScrollY={isOverScrollY}>
       {navigations.map((navigation) => (
         <SearchState
           target={target}
@@ -207,16 +286,23 @@ const AB_SEARCH_BAR = ({ target, targetChange }) => {
           href={navigation.link}
           onClick={handleClick}
           key={navigation.name}
+          isOverScrollY={isOverScrollY}
         >
           {navigation.name}
         </SearchState>
       ))}
       <Search search_state={target} />
+      <SearchBarOpen
+        openSearchBarInOverScroll={openSearchBarInOverScroll}
+        setOpenSearchBarInOverScroll={setOpenSearchBarInOverScroll}
+      />
     </SearchBarContainer>
   );
 };
 
-const AB_LOGO = ({ isOverScrollY }) => {
+const AB_LOGO = () => {
+  const { isOverScrollY, setIsOverScrollY } = useContext(IsOverScrollYContext);
+
   return (
     <LogoContainer isOverScrollY={isOverScrollY}>
       <FontAwesomeIcon icon={faAirbnb} />
@@ -227,6 +313,7 @@ const AB_LOGO = ({ isOverScrollY }) => {
 
 const AB_USER_BAR = () => {
   const { isSelectedMenu, setIsSelectedMenu } = useContext(SelectedItemContext);
+  const { isOverScrollY, setIsOverScrollY } = useContext(IsOverScrollYContext);
   const UserWrapperRef = createRef(null);
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -244,7 +331,7 @@ const AB_USER_BAR = () => {
     };
   }, [UserWrapperRef]);
   return (
-    <UserContainer>
+    <UserContainer isOverScrollY={isOverScrollY}>
       <ToBeHost>호스트 되기</ToBeHost>
       <LanguageSetting>
         <FontAwesomeIcon icon={faGlobe} />
@@ -253,8 +340,8 @@ const AB_USER_BAR = () => {
       <UserWrapper
         onClick={() =>
           isSelectedMenu ? setIsSelectedMenu(false) : setIsSelectedMenu(true)
-          // setIsSelectedMenu(true)
         }
+        isOverScrollY={isOverScrollY}
         ref={UserWrapperRef}
       >
         <UserMenuDialog
@@ -276,6 +363,8 @@ const AB_USER_BAR = () => {
 const HeaderBar = ({ target, targetChange }) => {
   const [isSelectedMenu, setIsSelectedMenu] = useState(false);
   const [isOverScrollY, setIsOverScrollY] = useState(false);
+  const [openSearchBarInOverScroll, setOpenSearchBarInOverScroll] =
+    useState(false);
   // 1. react -> context, useContext
   // 2. global state management -> redux, mobx
 
@@ -288,8 +377,13 @@ const HeaderBar = ({ target, targetChange }) => {
           <SelectedItemContext.Provider
             value={{ isSelectedMenu, setIsSelectedMenu }}
           >
-            <AB_LOGO isOverScrollY={isOverScrollY} />
-            <AB_SEARCH_BAR target={target} targetChange={targetChange} />
+            <AB_LOGO />
+            <AB_SEARCH_BAR
+              target={target}
+              targetChange={targetChange}
+              openSearchBarInOverScroll={openSearchBarInOverScroll}
+              setOpenSearchBarInOverScroll={setOpenSearchBarInOverScroll}
+            />
             <AB_USER_BAR />
           </SelectedItemContext.Provider>
         </IsOverScrollYContext.Provider>
