@@ -211,20 +211,20 @@ const UserIcon = styled.div`
 `;
 const OpenButtonContainer = styled.div`
   position: absolute;
-  transition: 0.1s ease-in-out;
-
-  /* transition-duration: 0.5s; */
-  top: 110px;
-  left: 0%;
-  transform: scale(2, 1) translateX(50%);
+  transition: 0.2s ease-in-out;
+  top: 100px;
+  left: 50%;
+  transform: scale(2, 1) translateX(-25%);
   z-index: -1;
+
+  display: flex;
+  align-items: center;
 
   ${(props) =>
     props.isOverScrollY &&
     css`
       top: 0;
-
-      padding: 10px;
+      padding: 13px;
       z-index: 1;
       left: 50%;
       transform: scale(1, 1) translateX(-50%);
@@ -234,9 +234,8 @@ const OpenButtonContainer = styled.div`
       ${props.openSearchBarInOverScroll &&
       css`
         top: 100px;
-        left: 0%;
-
-        transform: scale(2, 1) translateX(50%);
+        left: 50%;
+        transform: scale(2, 1) translateX(-25%);
         z-index: -1;
       `}
     `};

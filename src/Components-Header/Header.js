@@ -12,6 +12,7 @@ const Header = () => {
 
   return (
     <div className="header-container">
+      
       <HeaderBar
         targetChange={targetChange}
         target={target}

@@ -13,6 +13,8 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+
+  position: relative;
 }
 
 @media only screen and (max-width: 1070px) {

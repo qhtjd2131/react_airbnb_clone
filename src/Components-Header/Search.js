@@ -235,7 +235,7 @@ const Search = ({ search_state }) => {
       }
     };
     const handleScrollEvent = () => {
-      if (window.scrollY > 30) {
+      if (window.scrollY > 70) {
         setIsOverScrollY(true);
         setOpenSearchBarInOverScroll(false);
         // console.log(isOverScrollY);

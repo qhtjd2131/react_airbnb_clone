@@ -1,7 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 const FlexibleSearchContainer = styled.div`
-  flex: 1;
+  position: absolute;
+  bottom : 130px;
+  left : 50%;
+  transform : translateX(-50%);
   display: flex;
   flex-direction: column;
   justify-content: center;
