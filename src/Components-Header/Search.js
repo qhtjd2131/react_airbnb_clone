@@ -11,7 +11,7 @@ import { openSearchBarInOverScrollContext } from "./HeaderBar";
 const SearchContainer = styled.div`
   position: absolute;
   top: 100px;
-  width: 100%;
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;

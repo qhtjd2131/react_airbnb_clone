@@ -23,6 +23,7 @@ const HeaderBarContainer = styled.div`
       right: 0;
       z-index: 995;
       background-color: white;
+      box-shadow: 0px 6px 26px rgb(0 0 0 / 22%);
 
       ${props.openSearchBarInOverScroll &&
       css`
@@ -70,14 +71,16 @@ const LogoLabel = styled.label`
 
 const SearchBarContainer = styled.nav`
   color: white;
-  width: 100%;
+  /* width: 100%; */
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: transparent;
   position: absolute;
   left: 50%;
+  transform-origin: center;
   transform: translateX(-50%);
-  transition: 0.8s;
+  transition: 0.2s;
   ${(props) =>
     !props.isOverScrollY &&
     css`
@@ -88,7 +91,7 @@ const SearchBarContainer = styled.nav`
   ${(props) =>
     props.isOverScrollY &&
     css`
-      transform: scale(0.2, 0.2) translateX(-50%) center;
+      transform: scale(1, 1) translateX(-50%);
       ${props.openSearchBarInOverScroll &&
       css`
         transform: scale(1, 1) translateX(-50%);
