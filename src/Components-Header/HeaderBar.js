@@ -13,6 +13,7 @@ import Search from "./Search";
 
 const HeaderBarContainer = styled.div`
   position: relative;
+  transition: 0.2s;
   ${(props) =>
     props.isOverScrollY &&
     css`
@@ -22,6 +23,11 @@ const HeaderBarContainer = styled.div`
       right: 0;
       z-index: 995;
       background-color: white;
+
+      ${props.openSearchBarInOverScroll &&
+      css`
+        padding-bottom: 120px;
+      `}
     `}
 `;
 const ContentsWrapper = styled.div`
@@ -71,6 +77,7 @@ const SearchBarContainer = styled.nav`
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  transition: 0.8s;
   ${(props) =>
     !props.isOverScrollY &&
     css`
@@ -81,10 +88,12 @@ const SearchBarContainer = styled.nav`
   ${(props) =>
     props.isOverScrollY &&
     css`
-      @media only screen and (max-width: 1070px) {
-        left: 300px;
-      }
-    `}
+      transform: scale(0.2, 0.2) translateX(-50%) center;
+      ${props.openSearchBarInOverScroll &&
+      css`
+        transform: scale(1, 1) translateX(-50%);
+      `};
+    `};
 `;
 
 const SearchState = styled.div`
@@ -205,20 +214,29 @@ const OpenButtonContainer = styled.div`
   transition: 0.1s ease-in-out;
 
   /* transition-duration: 0.5s; */
-  top: 100px;
-  transform: scale(2, 1);
+  top: 110px;
+  left: 0%;
+  transform: scale(2, 1) translateX(50%);
   z-index: -1;
 
   ${(props) =>
     props.isOverScrollY &&
     css`
       top: 0;
+
+      padding: 10px;
       z-index: 1;
-      transform: scale(1, 1);
+      left: 50%;
+      transform: scale(1, 1) translateX(-50%);
+      @media only screen and (max-width: 1070px) {
+        left: 300px;
+      }
       ${props.openSearchBarInOverScroll &&
       css`
         top: 100px;
-        transform: scale(2, 1);
+        left: 0%;
+
+        transform: scale(2, 1) translateX(50%);
         z-index: -1;
       `}
     `};
@@ -244,7 +262,7 @@ export const SelectedItemContext = React.createContext({});
 export const IsOverScrollYContext = React.createContext({});
 export const openSearchBarInOverScrollContext = React.createContext({});
 const SearchBarOpen = () => {
-  const { isOverScrollY, setIsOverScrollY } = useContext(IsOverScrollYContext);
+  const { isOverScrollY } = useContext(IsOverScrollYContext);
   const { openSearchBarInOverScroll, setOpenSearchBarInOverScroll } =
     useContext(openSearchBarInOverScrollContext);
 
@@ -311,10 +329,10 @@ const AB_SEARCH_BAR = ({ target, targetChange }) => {
         openSearchBarInOverScroll={openSearchBarInOverScroll}
         setOpenSearchBarInOverScroll={setOpenSearchBarInOverScroll}
       />
-      <SearchBarOpen
+      {/* <SearchBarOpen
         openSearchBarInOverScroll={openSearchBarInOverScroll}
         setOpenSearchBarInOverScroll={setOpenSearchBarInOverScroll}
-      />
+      /> */}
     </SearchBarContainer>
   );
 };
@@ -389,7 +407,10 @@ const HeaderBar = ({ target, targetChange }) => {
   // 2. global state management -> redux, mobx
 
   return (
-    <HeaderBarContainer isOverScrollY={isOverScrollY}>
+    <HeaderBarContainer
+      isOverScrollY={isOverScrollY}
+      openSearchBarInOverScroll={openSearchBarInOverScroll}
+    >
       <ContentsWrapper>
         <IsOverScrollYContext.Provider
           value={{ isOverScrollY, setIsOverScrollY }}
@@ -407,6 +428,10 @@ const HeaderBar = ({ target, targetChange }) => {
               <AB_SEARCH_BAR
                 target={target}
                 targetChange={targetChange}
+                openSearchBarInOverScroll={openSearchBarInOverScroll}
+                setOpenSearchBarInOverScroll={setOpenSearchBarInOverScroll}
+              />
+              <SearchBarOpen
                 openSearchBarInOverScroll={openSearchBarInOverScroll}
                 setOpenSearchBarInOverScroll={setOpenSearchBarInOverScroll}
               />

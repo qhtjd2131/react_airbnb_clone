@@ -55,6 +55,13 @@ const SearchBar = styled.div`
     css`
       grid-template-columns: 6fr 4fr 4fr 6fr;
     `}
+
+    ${(props) =>
+    props.openSearchBarInOverScroll &&
+    css`
+      background-color: white;
+      border: 1px solid #dddddd;
+    `}
 `;
 
 const Input = styled.input`
@@ -256,6 +263,7 @@ const Search = ({ search_state }) => {
         search_state={search_state}
         selectedItem={selectedItem}
         ref={SearchBarRef}
+        openSearchBarInOverScroll={openSearchBarInOverScroll}
       >
         <ContentWrapper
           search_state={search_state}
