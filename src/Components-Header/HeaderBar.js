@@ -127,7 +127,7 @@ const SearchState = styled.div`
       &:after {
         display: block;
         content: "";
-        border-bottom: solid 2px white;
+        border-bottom: solid 3px white;
         transition: transform 250ms ease-in-out;
         transform: scaleX(0.8);
       }
@@ -143,6 +143,13 @@ const SearchState = styled.div`
     props.isOverScrollY &&
     css`
       color: black;
+
+      &:hover {
+        color: gray;
+      }
+      &:after {
+        border-bottom: solid 3px black;
+      }
     `}
 `;
 
@@ -328,10 +335,6 @@ const AB_SEARCH_BAR = ({ target, targetChange }) => {
         openSearchBarInOverScroll={openSearchBarInOverScroll}
         setOpenSearchBarInOverScroll={setOpenSearchBarInOverScroll}
       />
-      {/* <SearchBarOpen
-        openSearchBarInOverScroll={openSearchBarInOverScroll}
-        setOpenSearchBarInOverScroll={setOpenSearchBarInOverScroll}
-      /> */}
     </SearchBarContainer>
   );
 };

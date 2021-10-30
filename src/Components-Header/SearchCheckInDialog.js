@@ -8,10 +8,11 @@ import moment from "moment";
 import "moment/locale/ko";
 import { START_DATE } from "react-dates/src/constants.js";
 
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const SearchCheckInOutDialogContainer = styled.div``;
+
+const SearchCheckInOutDialogContainer = styled.div`
+
+`;
 
 const Dialog = styled.dialog`
   z-index: 990;

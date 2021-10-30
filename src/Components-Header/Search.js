@@ -238,12 +238,10 @@ const Search = ({ search_state }) => {
       if (window.scrollY > 70) {
         setIsOverScrollY(true);
         setOpenSearchBarInOverScroll(false);
-        // console.log(isOverScrollY);
       } else {
         setIsOverScrollY(false);
         setOpenSearchBarInOverScroll(false);
 
-        // console.log(isOverScrollY);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);

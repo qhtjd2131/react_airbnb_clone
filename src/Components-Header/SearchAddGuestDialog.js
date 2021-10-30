@@ -3,7 +3,9 @@ import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 
-const SearchAddGuestDialogContainer = styled.div``;
+const SearchAddGuestDialogContainer = styled.div`
+  z-index:2;
+`;
 const Dialog = styled.dialog`
   position: absolute;
   top: 100px;

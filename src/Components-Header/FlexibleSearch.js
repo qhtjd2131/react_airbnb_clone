@@ -1,14 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 const FlexibleSearchContainer = styled.div`
-  position: absolute;
-  bottom : 130px;
-  left : 50%;
-  transform : translateX(-50%);
+  width: 100%;
+  margin-top : auto;
+  margin-bottom : 150px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 0;
+
 `;
 
 const Label = styled.label`
