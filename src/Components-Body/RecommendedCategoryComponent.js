@@ -140,7 +140,6 @@ const RecommendedCategoryComponent = ({ title, itemsInfo }) => {
   const contentsWrapperRef = createRef(null);
   const [invisibleDirection, setInvisibleDirection] = useState("left");
   const itemsInfoLength = Object.keys(itemsInfo).length;
-  console.log(itemsInfoLength);
 
   const buttonLeftDirectionHandler = useCallback(() => {
     const a = contentsWrapperRef.current.firstChild.offsetWidth;
@@ -149,16 +148,17 @@ const RecommendedCategoryComponent = ({ title, itemsInfo }) => {
       contentsWrapperRef.current.scrollLeft < a + 10
     ) {
       setInvisibleDirection("left");
-      console.log("left end");
+    } else {
+      setInvisibleDirection("none");
     }
     contentsWrapperRef.current.scrollLeft -=
       contentsWrapperRef.current.firstChild.offsetWidth;
   }, [contentsWrapperRef]);
 
   const buttonRightDirectionHandler = useCallback(() => {
-    console.log(contentsWrapperRef.current.scrollWidth);
-    console.log(contentsWrapperRef.current.firstChild.offsetWidth);
-    console.log(contentsWrapperRef.current.offsetWidth);
+    // console.log(contentsWrapperRef.current.scrollWidth);
+    // console.log(contentsWrapperRef.current.firstChild.offsetWidth);
+    // console.log(contentsWrapperRef.current.offsetWidth);
 
     const a =
       contentsWrapperRef.current.scrollWidth -
@@ -173,7 +173,8 @@ const RecommendedCategoryComponent = ({ title, itemsInfo }) => {
       contentsWrapperRef.current.scrollLeft < a + 10
     ) {
       setInvisibleDirection("right");
-      console.log("right end");
+    } else {
+      setInvisibleDirection("none");
     }
 
     contentsWrapperRef.current.scrollLeft +=
