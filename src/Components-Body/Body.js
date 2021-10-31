@@ -65,7 +65,7 @@ const Body = () => {
       src: category2,
     },
     {
-      label: "추천 컬렉션:여행 본능을 깨우는 체험",
+      label: "추천 컬렉션:여행 본능을 깨우는 체험 fskgjfkljgk sfjklgjdsfklgjkldsfjgkldsfjkgljs dfsjgksldgjkldsfj dfsdfg",
       subLabel: "온라인 체험으로 집에서 랜선 여행을 즐기세요.",
       src: category3,
     },

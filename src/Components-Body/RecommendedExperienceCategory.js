@@ -25,11 +25,12 @@ const Item = styled.div`
   flex-direction: column;
   scroll-snap-align: start;
   width: 100%;
+  box-sizing: border-box;
+  padding: 8px;
 `;
 
 const ItemImage = styled.img`
   width: 100%;
-  padding: 8px;
   border-radius: 15px;
   box-sizing: border-box;
 `;
@@ -37,10 +38,20 @@ const ItemImage = styled.img`
 const ItemLabel = styled.label`
   font-size: 20px;
   font-weight: 600;
+  padding: 10px 0px;
+  word-break: keep-all;
+  
+  box-sizing: border-box;
+  white-space : normal;
+  max-height : 80px;
+  overflow : hidden;
+  text-overflow : ellipsis;
+  border: 1px solid blue;
 `;
 
 const ItemSubLabel = styled.label`
   font-size: 17px;
+  word-break: keep-all;
 `;
 
 const RecommendedCategoryComponent = ({ title, itemsInfo }) => {

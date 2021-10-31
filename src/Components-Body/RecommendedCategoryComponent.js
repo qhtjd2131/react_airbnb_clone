@@ -40,11 +40,14 @@ const Contents = styled.div`
 `;
 
 const Item = styled.div`
-  flex: 0 0 25%;  //4개의 item이 display
+  flex: 0 0 25%; //4개의 item이 display
   display: flex;
   flex-direction: column;
   scroll-snap-align: start;
   width: 100%;
+  box-sizing: border-box;
+  padding: 8px;
+
   @media only screen and (max-width: ${largeWidth}) {
     flex: 0 0 33.333333%; //3개의 item이 display
   }
@@ -52,14 +55,15 @@ const Item = styled.div`
 
 const ItemImage = styled.img`
   width: 100%;
-  padding: 8px;
   border-radius: 15px;
-  box-sizing: border-box;
 `;
 
 const ItemLabel = styled.label`
   font-size: 20px;
   font-weight: 600;
+  padding : 10px 0px;
+  word-break : keep-all;
+
 `;
 
 const Button = styled.button`
