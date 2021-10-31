@@ -20,16 +20,16 @@ const SearchContainer = styled.div`
   ${(props) =>
     props.isOverScrollY &&
     css`
-      top: 0;
+      /* top: 0; */
       color: black;
-      transform: scale(0, 0);
+      /* transform: scale(0, 0); */
 
-      ${(props) =>
+      /* ${(props) =>
         props.openSearchBarInOverScroll &&
         css`
           top: 100px;
           transform: scale(1, 1);
-        `}
+        `} */
     `}
 `;
 
@@ -70,6 +70,9 @@ const Input = styled.input`
   font-size: 20px;
   width: 100%;
   box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   &:focus {
     outline: none;
   }

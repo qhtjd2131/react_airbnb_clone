@@ -13,7 +13,7 @@ import Search from "./Search";
 
 const HeaderBarContainer = styled.div`
   position: relative;
-  transition: 0.2s;
+  transition: 0.15s;
   ${(props) =>
     props.isOverScrollY &&
     css`
@@ -28,6 +28,9 @@ const HeaderBarContainer = styled.div`
       ${props.openSearchBarInOverScroll &&
       css`
         padding-bottom: 120px;
+        @media only screen and (max-width: 1070px) {
+          padding-bottom: 210px;
+        }
       `}
     `}
 `;
@@ -77,23 +80,28 @@ const SearchBarContainer = styled.nav`
   align-items: center;
   background-color: transparent;
   position: absolute;
+  top : 12px;
   left: 50%;
-  transform-origin: center;
+  transform-origin: -10% 30%;
   transform: translateX(-50%);
   transition: 0.2s;
+
+  ${(props) => !props.isOverScrollY && css``}
   ${(props) =>
-    !props.isOverScrollY &&
+    props.isOverScrollY && //스크롤바 내릴 시
     css`
+      transform: scale(0.3, 0.3) translateX(-50%);
+      opacity: 0;
+
       @media only screen and (max-width: 1070px) {
-        top: 90px;
+        transform-origin: -100% -30%;
       }
-    `}
-  ${(props) =>
-    props.isOverScrollY &&
-    css`
-      transform: scale(1, 1) translateX(-50%);
-      ${props.openSearchBarInOverScroll &&
+      ${props.openSearchBarInOverScroll && //스크롤바 내리고, 검색시작하기 버튼 클릭 시
       css`
+        @media only screen and (max-width: 1070px) {
+          margin-top: 170px;
+        }
+        opacity: 1;
         transform: scale(1, 1) translateX(-50%);
       `};
     `};
@@ -221,32 +229,43 @@ const UserIcon = styled.div`
 `;
 const OpenButtonContainer = styled.div`
   position: absolute;
-  transition: 0.2s ease-in-out;
+  transition: 0.1s ease-in-out;
   top: 100px;
   left: 50%;
-  transform: scale(2, 1) translateX(-25%);
+  transform-origin: center;
+  transform: scale(2.3, 1) translateX(-25%);
   z-index: -1;
 
-  display: flex;
+  display: none;
   align-items: center;
-
   ${(props) =>
     props.isOverScrollY &&
     css`
       top: 0;
-      padding: 13px;
       z-index: 1;
       left: 50%;
       transform: scale(1, 1) translateX(-50%);
+      padding: 13px;
+      display: flex;
+
       @media only screen and (max-width: 1070px) {
-        left: 300px;
+        left: 25%;
+        transform: scale(1, 1) translateX(-20%);
       }
       ${props.openSearchBarInOverScroll &&
       css`
-        top: 100px;
+        @media only screen and (max-width: 1070px) {
+          left: 50%;
+          top: 182px;
+          transform: scale(2.2, 1) translateX(-30%);
+        }
         left: 50%;
-        transform: scale(2, 1) translateX(-25%);
-        z-index: -1;
+        top: 100px;
+        transform: scale(2.5, 1) translateX(-20%);
+        z-index: 1;
+        opacity: 0;
+
+        /* display: none; */
       `}
     `};
 `;
