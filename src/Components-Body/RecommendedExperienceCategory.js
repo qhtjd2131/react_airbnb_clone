@@ -40,13 +40,16 @@ const ItemLabel = styled.label`
   font-weight: 600;
   padding: 10px 0px;
   word-break: keep-all;
-  
+
   box-sizing: border-box;
-  white-space : normal;
-  max-height : 80px;
-  overflow : hidden;
-  text-overflow : ellipsis;
-  border: 1px solid blue;
+
+  line-height: 24px;
+  max-height: 62px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 
 const ItemSubLabel = styled.label`

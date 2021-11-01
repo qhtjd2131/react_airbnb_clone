@@ -61,9 +61,17 @@ const ItemImage = styled.img`
 const ItemLabel = styled.label`
   font-size: 20px;
   font-weight: 600;
-  padding : 10px 0px;
-  word-break : keep-all;
+  padding: 10px 0px;
+  word-break: keep-all;
 
+  line-height: 24px;
+  max-height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  white-space: pre-line;
 `;
 
 const Button = styled.button`
