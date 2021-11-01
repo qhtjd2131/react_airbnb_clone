@@ -80,7 +80,7 @@ const SearchBarContainer = styled.nav`
   align-items: center;
   background-color: transparent;
   position: absolute;
-  top : 12px;
+  top: 12px;
   left: 50%;
   transform-origin: -10% 30%;
   transform: translateX(-50%);
@@ -262,7 +262,7 @@ const OpenButtonContainer = styled.div`
         left: 50%;
         top: 100px;
         transform: scale(2.5, 1) translateX(-20%);
-        z-index: 1;
+        z-index: -1;
         opacity: 0;
 
         /* display: none; */
