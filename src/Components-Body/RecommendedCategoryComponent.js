@@ -18,14 +18,17 @@ const Title = styled.h2`
 const ContentsWrapper = styled.div`
   width: inherit;
   display: flex;
-  overflow: scroll;
-  scroll-behavior: smooth;
+
   box-sizing: border-box;
-  scroll-snap-type: x mandatory;
 
   &::-webkit-scrollbar {
     display: none;
     scrollbar-width: none;
+  }
+  @media only screen and (max-width: ${largeWidth}) {
+    overflow: scroll;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
   }
 `;
 
@@ -158,7 +161,6 @@ const RecommendedCategoryComponent = ({ title, itemsInfo }) => {
   }, [contentsWrapperRef]);
 
   const buttonRightDirectionHandler = useCallback(() => {
-   
     const a =
       contentsWrapperRef.current.scrollWidth -
       contentsWrapperRef.current.firstChild.offsetWidth -

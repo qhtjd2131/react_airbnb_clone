@@ -1,5 +1,200 @@
 # Getting Started with Create React App
 
+# Airbnb Clone Coding
+## 소개
+
+Window 환경에서 create-react-app 을 사용하여 Airbnb main page를 클론코딩했습니다.
+Chrome 을 기준으로 개발했기 때문에, 다른 브라우저와 호환이 되지 않을 수 도 있습니다.
+
+Airbnb : https://www.airbnb.co.kr/
+myAirbnb(clone) : https://qhtjd2131.github.io/react_airbnb_clone/
+
+### 시작하기
+```
+npm install
+npm run start
+```
+  
+---
+
+### 기술 스택
+
+**1. HTML5**
+
+**2. CSS3**
+ - 효율적인 조건부 스타일링을 위해 기존에 .css 파일을 import하는 방법 대신에 styled-components 라이브러리를 사용하여 스타일링 하였음.
+
+- transform : scale(), transition 을 이용하여 airbnb의 애니메이션을 구현함.
+- 
+
+**3. CRA (create-react-app)**
+
+(auto installed by CRA)
+- webpack (bundler)
+
+- babel
+
+- others..
+
+**4. React Library**
+- react-dates (https://github.com/airbnb/react-dates)
+	체크인, 체크아웃을 위해 dates 를 선택할 수 있는 기능
+	
+- moment (https://momentjs.com/)
+	react-dates 에서 선택한 dates 객체가 moment 형태로 반환됨
+	
+- styled-components (https://github.com/styled-components/styled-components)
+	다양한 스타일 방법 경험과 효율적인 조건부 스타일링을 위하여 사용
+
+- gh-pages (https://www.npmjs.com/package/gh-pages)
+	github의 호스팅 서비스 이용하기
+
+- font-awesome (https://fontawesome.com/v5.15/how-to-use/on-the-web/using-with/react)
+  user icon, menu icon, airbnb logo 등 다양한 아이콘을 적용하기 위해 사용.
+  
+
+### Dependencies
+
+```
+"dependencies": {
+
+"@fortawesome/fontawesome-svg-core": "^1.2.36",
+
+"@fortawesome/free-brands-svg-icons": "^5.15.4",
+
+"@fortawesome/free-solid-svg-icons": "^5.15.4",
+
+"@testing-library/jest-dom": "^5.11.4",
+
+"@testing-library/react": "^11.1.0",
+
+"@testing-library/user-event": "^12.1.10",
+
+"font-awesome": "^4.7.0",
+
+"gh-pages": "^3.2.3",
+
+"moment": "^2.29.1",
+
+"react": "^17.0.2",
+
+"react-dates": "^21.8.0",
+
+"react-dom": "^17.0.2",
+
+"react-scripts": "4.0.3",
+
+"styled-components": "^5.3.1",
+
+"web-vitals": "^1.0.1"
+
+}
+```
+
+---
+
+### 겪었던 어려움
+
+#### 문제 1. (Underbar Styling in SearchBar)
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/34260967/139791578-8fc9b18e-34fb-4d84-a144-136d32224850.gif)
+
+
+**내용** :
+ Header 부분 SearchBar 컴포넌트 아이템에 마우스 포인터 hover 시 밑줄 애니메이션 효과 구현
+
+**해결** :  
+처음엔 border-bottom 과 transition 을 이용하여 구현하려고 했지만,  하얀 선이 가운데서부터 양끝으로 퍼져나가는 애니메이션을 구현하지 못하였다.
+
+그래서 구글링하여 찾은 방법은 :after 을 사용해 만든 밑줄 컴포넌트를 transform : scaleX() 를 통해 width의 크기를 줄이거나 늘리는 것이다. 
+이때 :after의 상위 컴포넌트는 
+```
+display : inline-block 
+```
+또는,
+```
+display:flex
+flex-direction : column 
+```
+ 을 이용하여 :after 컴포넌트가 바로 아래 배치되게 해야한다.
+
+```
+&:after {
+	display: block;
+	content: "";
+	width : 40px;
+	border-bottom: solid  2px  white;
+	transform: scaleX(0);
+	transition: transform  250ms  ease-in-out;
+	margin-top: 7px;
+}
+
+&:hover:after {
+	transform: scaleX(0.2);
+}
+
+&:active:after {
+	transform: scaleX(0.8)
+}
+```
+
+#### 문제 2. (Conditional Styling, CSS, Styled-Components)
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/34260967/139791578-8fc9b18e-34fb-4d84-a144-136d32224850.gif)
+**내용** : 
+같은 item components 이지만 위와 같이 선택된 item에 조건부로 스타일링을 할 필요가 있었다. 
+
+**해결** : 
+1. 처음에는 이전에 했던것과 같이 item을 랜더링 할 때, && 연산자를 이용하여 조건부로 다른 className을 지정하여 스타일링 하였다.  
+
+2. 위 방법이 결론적으로는 해결되었으나, 하나의 item인데 2개의 className이 필요한것에 비효율적이라고 생각하였다. 그래서 styled-components의 필요성을 느끼게 되었다.
+따라서 styled-components로 변환하여 item이 선택되었는지 props로 확인하여 조건부로 스타일링 하였다.
+
+**기타** :
+Styled-Components를 사용하고 Components의 state와 props를 활용하여 효율적인 스타일링을 하게되었다. 하지만 하나의 파일안에서 코드가 너무 길어지고 지나치게 많은 props를 내려주어야 해서 복잡하단 생각을 하게 되었다. 
+ 찾아보니, 많은 수의 props를 반복 타이핑하는 문제를 해결하기 위해서 react에서는 useContext 라는것을 제공하고 있었다. 따라서 useContext를 사용하여 많은 props를 동시에 내려주고 해당 컴포넌트에서 context를 선언하여 사용할 수 있었다.
+
+#### 문제 3. ( DayPickerRangeController in react-dates)
+
+**내용** : react-dates 라이브러리의 DayPickerRangeController 컴포넌트가 dialog 위에서 랜더링 되지 않는 문제가 발생하였다. 
+ 정확하게는 dialog 태그 안에 달력이 조건부로 보여지게 하기 위해서 dialog의 open property를 open={false}로 초기값을 정의해주었는데, open={true} 로 변경되어도 dialog만 랜더링 되고 DayPickerRangeController 컴포넌트는 랜더링 되지 않았다.
+(초기값을 open={true} 로 주었을때는 랜더링이 잘되었고, 이후에 false로 바꾸고 다시 true로 바꿔도 정상작동하였다.
+
+**해결** : 
+문제를 해결하기 위해 다음과 같은 노력을 함.
+1. 프로젝트 내부구조를 확인하였으나 별다른 이상이 없었다.
+2. dialog 밖에 똑같은 DayPickerRangeController 컴포넌트를 만들어 랜더링 해보았다. 이 컴포넌트는 정상적으로 잘 랜더링 되었다. 그래서 dialog와 react-dates간의 문제가 생겼다고 생각했다.
+3. react-dates와 dialog 간의 관계에 특별한 issue가 있는지에 대해 구글과 stackoverflow에 검색하였다. 안타깝게도 나와 같은 케이스를 발견하지 못하였다.
+4. react-dates 공식문서와 제공해주는 storybook을 보고 DayPickRangeController의 props와 관계가 있는지 확인하였다. 하지만 관계를 발견하지 못하였다.
+5. 프로젝트가 랜더링된 페이지의 dialog element와 하위 element를 검토하였다. 이때 \<DayPickerRangeController \/> 컴포넌트가 영역은 차지하면서 rendering 되지 않는것을 깨달았다. style 을 확인해보니 다음과 같이 hidden 이 되어있었다.
+```
+.DayPicker__hidden {
+	visibility: hidden;
+}
+```
+크롬 개발자 도구를 이용하여 이 속성을 바꾸었더니 다이얼로그 위에 정상적으로 랜더링 되었다. Default 값이 왜 hidden인지 의아했다. 조금 더 찾아보니 Calender가 DOM이 처음 랜더링 될 때, 랜더링 되지 않게 의도하였다고 한다. 
+(참고 : https://github.com/airbnb/react-dates/issues/1249)
+
+위 링크에서 'Marinolinderhof' 라는 사람은 처음 DOM에서 랜더링 되지 않기 때문에, 나의 코드처럼 미리 \<DayPickerRangeController \/> 를 처음부터 DOM에 포함 시키지 않고 아래와 같이 state에 따라 Element가 랜더링 되게 만들었다.
+
+```
+state={
+	 isBootstrapDropDownOpen: false;
+}
+
+render() {
+	<>
+	  <Button onClick={this.setState({ isBootstrapDropDownOpen: true })}>
+	  {isBootstrapDropDownOpen && <DayPickerRangeController/>
+	</>
+}
+```
+이렇게 하면 \<DayPickerRangeController \/> 가 state가 변경될 때 마다 재생성 되는것이 아닌가 생각을 하였다. 하지만 직접 적용해보니 재생성 되는것이 아닌 같은  \<DayPickerRangeController />컴 포넌트인 것을 확인하였다. 당장의 문제해결이 아닌 근본적인 문제의 해결에 중요성과, 나에게 다양한 시각과 해결 방법을 제공해준 google, github, stackoverflow 에게 고마움을 느꼈다.
+
+**기타** : 
+바보같이 나의 프로젝트 내부를 자세하게 보지 않고, 외부에서 해결법을 찾으려고 하였다. 조금 더 일찍 hidden된 영역을 찾았더라면, 고민하던 시간을 줄일 수 있었을 것이다.
+다음에 랜더링 이슈가 발생하였을 때, 나의 Element 구조와 적용된 스타일을 먼저 자세하게 살펴봐야겠다.
+
+---
+
 scaleX를 사용하여 밑줄크기변경
 
 
@@ -35,6 +230,8 @@ visibility: visible;
 다음과같이 라이브러리 내부파일을 직접 변경하고 github에 올린다면, 내 코드를 clone한 사람에게는 적용이 안되지 않을까?
 
 => css파일을 새로 생성하여 오버라이드 하는것으로 해결(공식사이트에서 권장)
+
+
 
 어디에서, 여행은 살아보는 거야! 라는 라벨을 가진 컴포넌트인 RecommendedCategoryComponent 에서 옆으로 스크롤 할 수 있는 버튼인 buttonLeft buttonRight를 만들었다. 스크롤일 가장 끝에 위치할때는 더이상 해당방향으로 이동 할 수 없기때문에 display를 조절해야했다.
 
