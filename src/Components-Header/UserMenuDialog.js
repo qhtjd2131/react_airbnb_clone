@@ -1,4 +1,4 @@
-import React, { createRef, useEffect } from "react";
+import React from "react";
 import styled, { css } from "styled-components";
 
 const UserMenuDialogCotainer = styled.div``;
@@ -80,25 +80,7 @@ const MenuItems = () => {
     )
   );
 };
-const UserMenuDialog = ({ isSelectedMenu, setIsSelectedMenu }) => {
-  // const DialogRef = createRef(null);
-
-  // useEffect(() => {
-  //   const handleClickOutside = (e) => {
-  //     if (DialogRef.current) {
-      
-  //       if (!DialogRef.current.contains(e.target)) {
-  //         setIsSelectedMenu(false);
-  //       }
-  //     }
-  //   };
-
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, [DialogRef]);
-
+const UserMenuDialog = ({ isSelectedMenu }) => {
   return (
     <UserMenuDialogCotainer>
       <Dialog open={isSelectedMenu}>

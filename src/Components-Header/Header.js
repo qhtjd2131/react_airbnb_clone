@@ -16,14 +16,8 @@ const Header = () => {
       <HeaderBar
         targetChange={targetChange}
         target={target}
-        // isOverScrollY={isOverScrollY}
-        // setIsOverScrollY={setIsOverScrollY}
       />
-      {/* <Search
-        search_state={target}
-        isOverScrollY={isOverScrollY}
-        setIsOverScrollY={setIsOverScrollY}
-      /> */}
+  
       <FlexibleSearch />
     </div>
   );

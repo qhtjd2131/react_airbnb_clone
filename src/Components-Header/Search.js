@@ -244,7 +244,6 @@ const Search = ({ search_state }) => {
       } else {
         setIsOverScrollY(false);
         setOpenSearchBarInOverScroll(false);
-
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -253,7 +252,7 @@ const Search = ({ search_state }) => {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("scroll", handleScrollEvent);
     };
-  }, [SearchBarRef]);
+  }, [SearchBarRef, setIsOverScrollY, setOpenSearchBarInOverScroll]);
 
   return (
     <SearchContainer

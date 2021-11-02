@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect, createRef } from "react";
-import "./HeaderBar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAirbnb } from "@fortawesome/free-brands-svg-icons";
 import {
@@ -264,8 +263,6 @@ const OpenButtonContainer = styled.div`
         transform: scale(2.5, 1) translateX(-20%);
         z-index: -1;
         opacity: 0;
-
-        /* display: none; */
       `}
     `};
 `;
@@ -362,7 +359,7 @@ const AB_SEARCH_BAR = ({ target, targetChange }) => {
 };
 
 const AB_LOGO = () => {
-  const { isOverScrollY, setIsOverScrollY } = useContext(IsOverScrollYContext);
+  const { isOverScrollY } = useContext(IsOverScrollYContext);
 
   return (
     <LogoContainer isOverScrollY={isOverScrollY}>
@@ -374,7 +371,7 @@ const AB_LOGO = () => {
 
 const AB_USER_BAR = () => {
   const { isSelectedMenu, setIsSelectedMenu } = useContext(SelectedItemContext);
-  const { isOverScrollY, setIsOverScrollY } = useContext(IsOverScrollYContext);
+  const { isOverScrollY } = useContext(IsOverScrollYContext);
 
   const UserWrapperRef = createRef(null);
   useEffect(() => {
@@ -382,7 +379,6 @@ const AB_USER_BAR = () => {
       if (UserWrapperRef.current) {
         if (!UserWrapperRef.current.contains(e.target)) {
           setIsSelectedMenu(false);
-          console.log("outside click");
         }
       }
     };
@@ -391,7 +387,7 @@ const AB_USER_BAR = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [UserWrapperRef]);
+  }, [UserWrapperRef, setIsSelectedMenu]);
   return (
     <UserContainer isOverScrollY={isOverScrollY}>
       <ToBeHost>호스트 되기</ToBeHost>

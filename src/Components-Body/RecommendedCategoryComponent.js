@@ -1,4 +1,4 @@
-import React, { createRef, useCallback, useEffect, useState } from "react";
+import React, { createRef, useCallback, useState } from "react";
 import styled, { css } from "styled-components";
 
 const largeWidth = "1228px";
@@ -26,16 +26,6 @@ const ContentsWrapper = styled.div`
   &::-webkit-scrollbar {
     display: none;
     scrollbar-width: none;
-  }
-`;
-
-const Contents = styled.div`
-  display: flex;
-  overflow: scroll;
-  box-sizing: border-box;
-  @media only screen and (max-width: ${largeWidth}) {
-    // width: 133.3333%;
-    /* width: 200%; */
   }
 `;
 
@@ -168,17 +158,11 @@ const RecommendedCategoryComponent = ({ title, itemsInfo }) => {
   }, [contentsWrapperRef]);
 
   const buttonRightDirectionHandler = useCallback(() => {
-    // console.log(contentsWrapperRef.current.scrollWidth);
-    // console.log(contentsWrapperRef.current.firstChild.offsetWidth);
-    // console.log(contentsWrapperRef.current.offsetWidth);
+   
     const a =
       contentsWrapperRef.current.scrollWidth -
       contentsWrapperRef.current.firstChild.offsetWidth -
       contentsWrapperRef.current.offsetWidth;
-
-    // console.log("a :", a);
-    // console.log(contentsWrapperRef.current.scrollLeft);
-
     if (
       a - 10 < contentsWrapperRef.current.scrollLeft &&
       contentsWrapperRef.current.scrollLeft < a + 10
@@ -213,14 +197,12 @@ const RecommendedCategoryComponent = ({ title, itemsInfo }) => {
           {">"}
         </Button>
         <ContentsWrapper ref={contentsWrapperRef}>
-          {/* <Contents> */}
           {[...itemsInfo].map((item, index) => (
             <Item key={index}>
               <ItemImage src={item.src} />
               <ItemLabel>{item.label} </ItemLabel>
             </Item>
           ))}
-          {/* </Contents> */}
         </ContentsWrapper>
       </Box>
     </RecommendedCategory>
