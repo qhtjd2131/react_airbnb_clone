@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/react_airbnb_clone/static/css/main.a50a8d57.chunk.css",
-    "main.js": "/react_airbnb_clone/static/js/main.c8f3c363.chunk.js",
-    "main.js.map": "/react_airbnb_clone/static/js/main.c8f3c363.chunk.js.map",
+    "main.css": "/react_airbnb_clone/static/css/main.c15d0fde.chunk.css",
+    "main.js": "/react_airbnb_clone/static/js/main.f021c7da.chunk.js",
+    "main.js.map": "/react_airbnb_clone/static/js/main.f021c7da.chunk.js.map",
     "runtime-main.js": "/react_airbnb_clone/static/js/runtime-main.1d0609fb.js",
     "runtime-main.js.map": "/react_airbnb_clone/static/js/runtime-main.1d0609fb.js.map",
     "static/css/2.db4202f4.chunk.css": "/react_airbnb_clone/static/css/2.db4202f4.chunk.css",
@@ -10,7 +10,7 @@
     "static/js/2.9a2a5a05.chunk.js.map": "/react_airbnb_clone/static/js/2.9a2a5a05.chunk.js.map",
     "index.html": "/react_airbnb_clone/index.html",
     "static/css/2.db4202f4.chunk.css.map": "/react_airbnb_clone/static/css/2.db4202f4.chunk.css.map",
-    "static/css/main.a50a8d57.chunk.css.map": "/react_airbnb_clone/static/css/main.a50a8d57.chunk.css.map",
+    "static/css/main.c15d0fde.chunk.css.map": "/react_airbnb_clone/static/css/main.c15d0fde.chunk.css.map",
     "static/js/2.9a2a5a05.chunk.js.LICENSE.txt": "/react_airbnb_clone/static/js/2.9a2a5a05.chunk.js.LICENSE.txt",
     "static/media/busan.957ed41f.jpg": "/react_airbnb_clone/static/media/busan.957ed41f.jpg",
     "static/media/category1.86942ec8.jpg": "/react_airbnb_clone/static/media/category1.86942ec8.jpg",
@@ -25,7 +25,7 @@
     "static/js/runtime-main.1d0609fb.js",
     "static/css/2.db4202f4.chunk.css",
     "static/js/2.9a2a5a05.chunk.js",
-    "static/css/main.a50a8d57.chunk.css",
-    "static/js/main.c8f3c363.chunk.js"
+    "static/css/main.c15d0fde.chunk.css",
+    "static/js/main.f021c7da.chunk.js"
   ]
 }
