@@ -20,16 +20,7 @@ const SearchContainer = styled.div`
   ${(props) =>
     props.isOverScrollY &&
     css`
-      /* top: 0; */
       color: black;
-      /* transform: scale(0, 0); */
-
-      /* ${(props) =>
-        props.openSearchBarInOverScroll &&
-        css`
-          top: 100px;
-          transform: scale(1, 1);
-        `} */
     `}
 `;
 

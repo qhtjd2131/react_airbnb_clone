@@ -6,6 +6,7 @@ Window 환경에서 create-react-app 을 사용하여 Airbnb main page를 클론
 Chrome 을 기준으로 개발했기 때문에, 다른 브라우저와 호환이 되지 않을 수 도 있습니다.
 
 Airbnb : https://www.airbnb.co.kr/
+
 myAirbnb(clone) : https://qhtjd2131.github.io/react_airbnb_clone/
 
 ### 시작하기
@@ -26,9 +27,7 @@ npm run start
 - 효율적인 조건부 스타일링을 위해 기존에 .css 파일을 import하는 방법 대신에 styled-components 라이브러리를 사용하여 스타일링 하였음.
 
 - transform : scale(), transition 을 이용하여 airbnb의 애니메이션을 구현함.
--
-
-**3. CRA (create-react-app)**
+- **3. CRA (create-react-app)**
 
 (auto installed by CRA)
 
@@ -285,10 +284,12 @@ Waring의 내용을 보니 ComponentWillReceiveProps의 이름이 변경되었�
 
 #### 문제 7. (부모 state 변경 시, 자식 components unmont 되는 현상 )
 
-의도하는 동작
+**의도하는 동작**
+
 ![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/34260967/139823123-9ef0c57d-733c-47cf-89e8-543a3074e8a3.gif)
 
-오류 발생 동작 (체크인 체크아웃 밑 label 을 봐주세요)
+**오류 발생 동작 (체크인 체크아웃 밑 label 을 봐주세요)**
+
 ![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/34260967/139824043-d5e3f140-eea5-4abf-920b-faed380651b6.gif)
 
 **내용** :
