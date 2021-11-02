@@ -109,10 +109,12 @@ const SearchBarContainer = styled.nav`
 const SearchState = styled.div`
   text-decoration: none;
   padding: 20px;
-  display: inline-block;
+  display: flex;
+  flex-direction:column;
   margin: 0;
   cursor: pointer;
-  justify-items: center;
+  justify-content: center;
+  align-items : center;
 
   &:hover {
     color: rgb(206, 198, 198);
@@ -121,6 +123,7 @@ const SearchState = styled.div`
     display: block;
     content: "";
     border-bottom: solid 2px white;
+    width : 40px;
     transform: scaleX(0);
     transition: transform 250ms ease-in-out;
     margin-top: 7px;
@@ -286,6 +289,7 @@ const SearchBarOpenButton = styled.div`
 export const SelectedItemContext = React.createContext({});
 export const IsOverScrollYContext = React.createContext({});
 export const openSearchBarInOverScrollContext = React.createContext({});
+
 const SearchBarOpen = () => {
   const { isOverScrollY } = useContext(IsOverScrollYContext);
   const { openSearchBarInOverScroll, setOpenSearchBarInOverScroll } =

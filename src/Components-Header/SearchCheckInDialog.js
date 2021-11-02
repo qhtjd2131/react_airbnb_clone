@@ -8,11 +8,7 @@ import moment from "moment";
 import "moment/locale/ko";
 import { START_DATE } from "react-dates/src/constants.js";
 
-
-
-const SearchCheckInOutDialogContainer = styled.div`
-
-`;
+const SearchCheckInOutDialogContainer = styled.div``;
 
 const Dialog = styled.dialog`
   z-index: 990;
@@ -61,25 +57,29 @@ const SearchCheckInOutDialog = ({
         }
       >
         <DialogContentsWrapper>
-          <DayPickerRangeController
-            numberOfMonths={2}
-            daySize={64}
-            horizontalMonthPadding={27}
-            isOutsideRange={(day) => day.isBefore(moment().subtract(1, "days"))}
-            monthFormat="YYYY년 MM월"
-            startDate={startDate}
-            endDate={endDate}
-            onDatesChange={({ startDate, endDate }) => {
-              setStartDate(startDate);
-              setEndDate(endDate);
-            }}
-            focusedInput={focusedInput}
-            onFocusChange={(focusedInput) => {
-              setFocusedInput(!focusedInput ? START_DATE : focusedInput);
-            }}
-            initialVisibleMonth={() => moment()}
-            
-          />
+          {(selectedItem === "체크인" || selectedItem === "체크아웃") && (
+            <DayPickerRangeController
+              numberOfMonths={2}
+              daySize={64}
+              horizontalMonthPadding={27}
+              isOutsideRange={(day) =>
+                day.isBefore(moment().subtract(1, "days"))
+              }
+              monthFormat="YYYY년 MM월"
+              startDate={startDate}
+              endDate={endDate}
+              onDatesChange={({ startDate, endDate }) => {
+                setStartDate(startDate);
+                setEndDate(endDate);
+              }}
+              focusedInput={focusedInput}
+              onFocusChange={(focusedInput) => {
+                setFocusedInput(!focusedInput ? START_DATE : focusedInput);
+              }}
+              initialVisibleMonth={() => moment()}
+            />
+          )}
+        
         </DialogContentsWrapper>
       </Dialog>
     </SearchCheckInOutDialogContainer>

@@ -10,6 +10,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "font-awesome": "^4.7.0",
+    "gh-pages": "^3.2.3",
     "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-dates": "^21.8.0",
@@ -22,7 +23,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "ejet": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -45,5 +48,6 @@
   "devDependencies": {
     "@fortawesome/react-fontawesome": "^0.1.15",
     "@types/react-dates": "^21.8.3"
-  }
+  },
+  "homepage": "https://qhtjd2131.github.io/react_airbnb_clone"
 }

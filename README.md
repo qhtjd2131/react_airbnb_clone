@@ -2,8 +2,11 @@
 
 scaleX를 사용하여 밑줄크기변경
 
+
 Headerbar 에서 조건부랜더링으로 &&연산자를이용해 클래스이름을 다르게줌
 Search 에서 조건부랜더링으로 styled components 사용
+
+
 
 react-dates 라이브러리에서 DayPickerRangeController 컴포넌트가 랜더링 되지 않는 문제가 있음.
 정확하게는 dialog태그안에 달력이 조건부로 보여지게 하기 위해서 dialog의 open property를 open={false}로 초기값을 정의해주었는데, open={true} 로 변경되어도 dialog만 랜더링되고 DayPickerRangeController 컴포넌트는 랜더링 되지 않았다.
@@ -17,7 +20,7 @@ react-dom.development.js:67 Warning: componentWillReceiveProps 오류
 2일동안 많은자료를 찾아보고 변경해보아도 해결이 되지 않았음.
 그러다가 브라우저에서 캘린더가 영역은 차지하면서도 보이지 않는다는것을 알아 낸 후 크롬개발자도구를 이용하여 어떤스타일인지 확인해보았는데,
 캘린더가 초기에 랜더링되지않으면,
-.DayPicker\_\_hidden {
+.DayPicker\_\_hidden { 
 visibility: hidden;
 }
 스타일이 적용되어 영역은 차지하고 랜더링 되지않게되었다.
@@ -87,6 +90,8 @@ useEffect 의존성배열에 visibleDirection을 선언 후 다음과 같은 로
 useEffect를 사용하면 컴포넌트가 생성될때 한번 실행되게되는데, 처음에 스크롤이 이동하면 안된다. 따라서 visibleState("first") 초기값을 주고 if문을 사용한 로직으로 해결
 
 느낀점 : useEffect를 이렇게 사용해도 되려나 싶다.
+
+==> 후에 변경된 코드임
 
 
 media query로 반응형 웹을 구상하는 중에 반응의 기준점이 되는 width의 크기를 전역으로 선언하고 적용하고 싶었다. 하지만 css에서 media query의 파라미터로는 css native variables가 적용되지않았다.
