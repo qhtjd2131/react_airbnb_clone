@@ -288,11 +288,14 @@ item이 4개 이상일 때, 각각의 Left, Right 버튼이 항상 display 되�
 
 #### 문제 7. (부모 state 변경 시, 자식 components unmont 되는 현상 )
 
+
 **의도하는 동작**
 ![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/34260967/139823123-9ef0c57d-733c-47cf-89e8-543a3074e8a3.gif)
 
+
 **오류 발생 동작 (체크인 체크아웃 밑 label 을 봐주세요)**
 ![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/34260967/139824043-d5e3f140-eea5-4abf-920b-faed380651b6.gif)
+
 
 **내용** : HeaderBar Component 아래에 존재하는 state가 변경되는 이벤트가 발생할 때, startdate, enddate state 를 가진 Component가 unmount 되었다가 다시 mount 되어 state가 초기값으로 변경되는것을 발견하였다.
 
@@ -314,6 +317,17 @@ const Parents = () => {
 ```
 
 나의 components가 이러한 구조를 가지게 된 이유는 자식이 부모의 state를 쉽게 가져오기 위함이었다. 하지만 구조적인 결함을 인지하지 못하였고 이와 같은 문제를 발생하게 하였다.
+따라서 아래와 같이 Component안에 정의된 Component를 독립적으로 정의하여 해결하였다.
+```
+const Parent = () => {
+	...
+
+}
+
+const Childe = () => {
+	...
+}
+```
 
 **기타** :
 기초적인 동작과 구조에서 바보 같은 실수를 하여 부끄럽지만, 기본기를 다지는 좋은 기회였다고 생각한다. 그리고 useContext 와 더 나아가서 state관리 라이브러리의 필요성을 느끼게 되었다.
