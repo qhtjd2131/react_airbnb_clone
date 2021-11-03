@@ -301,7 +301,8 @@ item이 4개 이상일 때, 각각의 Left, Right 버튼이 항상 display 되�
 ![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/34260967/139824043-d5e3f140-eea5-4abf-920b-faed380651b6.gif)
 
 
-**내용** : HeaderBar Component 아래에 존재하는 state가 변경되는 이벤트가 발생할 때, startdate, enddate state 를 가진 Component가 unmount 되었다가 다시 mount 되어 state가 초기값으로 변경되는것을 발견하였다.
+**내용** : 
+HeaderBar Component 아래에 존재하는 state가 변경되는 이벤트가 발생할 때, startdate, enddate state 를 가진 Component가 unmount 되었다가 다시 mount 되어 state가 초기값으로 변경되는것을 발견하였다.
 
 **해결** :
 부모가 리랜더링 될 때, 자식이 unmount 되었다가 다시 mount 되는 것은 자식 Component가 재생성 되는것이다. 즉 자식 Component가 랜더링 과정에서 재정의가 되는 것이므로 직감적으로 나의 Component 구조의 문제라는 것을 직감하였다.
@@ -339,10 +340,12 @@ const Childe = () => {
 #### 문제 8. (HeaderBar Animation)
 
 **Airbnb headerbar**
+
 ![ezgif com-gif-maker (4)](https://user-images.githubusercontent.com/34260967/140034721-f393890a-27b9-49d4-add2-75ebc9ed4213.gif)
 
 
 **My Airbnb clone headerbar**
+
 ![ezgif com-gif-maker (5)](https://user-images.githubusercontent.com/34260967/140035763-62d4c763-b168-41d1-8edc-d97ce521533a.gif)
 
 
@@ -352,7 +355,7 @@ Airbnb 메인페이지에 scroll 시 HeaderBar가 점점 작아지면서 SearchB
 **해결** :
 문제를 해결하기 위해 Airbnb 사이트와 개발자도구를 많이 참고하였다. 
 
-#####1.구조변경
+##### 1.구조변경
 처음 나의 프로젝트는 아래와 같이 HeaderBar와 SearchBar 가 독립적인 구조를 이루고 있었다.
 
 
@@ -363,7 +366,7 @@ Airbnb 메인페이지에 scroll 시 HeaderBar가 점점 작아지면서 SearchB
 ![image](https://user-images.githubusercontent.com/34260967/140038807-649fc46f-c07e-4435-9c72-cb29ac52a4e7.png)
 
 
-#####2.'검색 시작하기' 버튼 구현
+##### 2.'검색 시작하기' 버튼 구현
 
 ![ezgif com-gif-maker (6)](https://user-images.githubusercontent.com/34260967/140040347-0e90824f-9033-4cbd-819a-3cb79e92c864.gif)
 
@@ -373,16 +376,19 @@ Airbnb 메인페이지에 scroll 시 HeaderBar가 점점 작아지면서 SearchB
 
 그리고 기능적인 효과를 하기 위해 HeaderBar 컴포넌트에 openSearchBarInOverScroll 이라는 state를 정의 해주어 버튼클릭시 true로 바꾸었고(scroll 위치 변경시 false), 이 state를 각 컴포넌트들이 props로 받아 펼쳐지는 효과를 스타일링 하였다.
 
-######3.반응형으로 구현
+###### 3.반응형으로 구현
 
 **xlarge-size**
 Headerbar (openSearchBarInOverScroll=false)
+
 ![image](https://user-images.githubusercontent.com/34260967/140043805-92bc5ace-532b-4ccf-ba80-316870067317.png)
 
 Headerbar (openSearchBarInOverScroll=true)
+
 ![image](https://user-images.githubusercontent.com/34260967/140043733-8f27f389-5c59-4cd7-9631-f7b008d313c0.png)
 
 **large-size**
+
 Headerbar (openSearchBarInOverScroll=false)
 
 ![image](https://user-images.githubusercontent.com/34260967/140043972-f9501f37-f011-48e8-9432-aad6787e9a7c.png)
