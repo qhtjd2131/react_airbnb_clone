@@ -27,7 +27,9 @@ npm run start
 - 효율적인 조건부 스타일링을 위해 기존에 .css 파일을 import하는 방법 대신에 styled-components 라이브러리를 사용하여 스타일링 하였음.
 
 - transform : scale(), transition 을 이용하여 airbnb의 애니메이션을 구현함.
-- **3. CRA (create-react-app)**
+-
+
+**3. CRA (create-react-app)**
 
 (auto installed by CRA)
 
@@ -197,7 +199,7 @@ render() {
 }
 ```
 
-이렇게 하면 \<DayPickerRangeController \/> 가 state가 변경될 때 마다 재생성 되는것이 아닌가 생각을 하였다. 하지만 직접 적용해보니 재생성 되는것이 아닌 같은 \<DayPickerRangeController />컴 포넌트인 것을 확인하였다. 당장의 문제해결이 아닌 근본적인 문제의 해결에 중요성과, 나에게 다양한 시각과 해결 방법을 제공해준 google, github, stackoverflow 에게 고마움을 느꼈다.
+이렇게 하면 \<DayPickerRangeController \/> 가 state가 변경될 때 마다 재생성 되는것이 아닌가 생각을 하였다. 하지만 직접 적용해보니 재생성 되는것이 아닌 같은 \<DayPickerRangeController /> 컴포넌트인 것을 확인하였다. 당장의 문제해결이 아닌 근본적인 문제의 해결에 중요성과, 나에게 다양한 시각과 해결 방법을 제공해준 google, github, stackoverflow 에게 고마움을 느꼈다.
 
 **기타** :
 바보같이 나의 프로젝트 내부를 자세하게 보지 않고, 외부에서 해결법을 찾으려고 하였다. 조금 더 일찍 hidden된 영역을 찾았더라면, 고민하던 시간을 줄일 수 있었을 것이다.
@@ -260,7 +262,7 @@ Waring의 내용을 보니 ComponentWillReceiveProps의 이름이 변경되었�
 **해결** :
 자세한 로직 설명은 생략합니다.
 
-위 문제를 해결하기 위해 다음과 같은 네가지 경우를 생각했습니다.
+위 문제를 해결하기 위해 다음과 같은 네가지 경우를 생각하였다.
 
 1. numberOfItem < 4,
    어떤 버튼도 필요없음.
@@ -271,32 +273,50 @@ Waring의 내용을 보니 ComponentWillReceiveProps의 이름이 변경되었�
 4. numberOfItem >= 4 이고 scroll이 오른쪽 끝에 위치할 경우
    Left 버튼만 필요.
 
-1번의 경우, item의 갯수를 버튼의 props로 받아 4개 미만이면, display : none; 을 적용했습니다.
+1번의 경우 :
+item의 갯수를 버튼의 props로 받아 4개 미만이면, display : none; 을 적용했다.
 
-2, 3, 4 번의 경우, item이 4개 이상일 때, 각각의 Left, Right 버튼이 항상 display 되며, 독립적으로 item의 끝 부분이라는 것을 인지하면 display : none 되게 만들어 해결했습니다.
+2, 3, 4 번의 경우 :
+item이 4개 이상일 때, 각각의 Left, Right 버튼이 항상 display 되며, 독립적으로 item의 끝 부분이라는 것을 인지하면 display : none 되게 만들어 해결했다.
 
-이 때, createRef 를 사용하여 item의 width를 구해서 버튼을 누르면 하나의 item의 width만큼 이동 되게 구현하였습니다.
+이 때, createRef 를 사용하여 item의 width를 구해서 버튼을 누르면 하나의 item의 width만큼 이동 되게 구현했다.
 
-그리고 scroll을 위하여 의도적으로 overflow 되게 만들어야 했습니다.
-처음에는 itemContainer 에 ` width : 133.33%` 를 적용되게 했습니다. 당연히 item이 4개일 때만 올바르게 동작하며, 매우 부끄러운 코드였습니다.
-나중에 flex-grow, flex-shrink, flex-basis 속성을 알게 되었고, 이를 활용하여 유동적인 코드를 만들 수 있었습니다.
-각각의 item 에 `flex: 0 0 33.33%` 를 적용하여 item 이 부모의 1/3 만큼의 width를 차지하게 만들었습니다.
+그리고 scroll을 위하여 의도적으로 overflow 되게 만들어야 했다.
+처음에는 itemContainer 에 ` width : 133.33%` 를 적용되게 했다. 당연히 item이 4개일 때만 올바르게 동작하며, 매우 부끄러운 코드라고 생각한다.
+나중에 flex-grow, flex-shrink, flex-basis 속성을 알게 되었고, 이를 활용하여 유동적인 코드를 만들 수 있었다.
+각각의 item 에 `flex: 0 0 33.33%` 를 적용하여 item 이 부모의 1/3 만큼의 width를 차지하게 만들었다.
 
 #### 문제 7. (부모 state 변경 시, 자식 components unmont 되는 현상 )
 
 **의도하는 동작**
-
 ![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/34260967/139823123-9ef0c57d-733c-47cf-89e8-543a3074e8a3.gif)
 
 **오류 발생 동작 (체크인 체크아웃 밑 label 을 봐주세요)**
-
 ![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/34260967/139824043-d5e3f140-eea5-4abf-920b-faed380651b6.gif)
 
-**내용** :
+**내용** : HeaderBar Component 아래에 존재하는 state가 변경되는 이벤트가 발생할 때, startdate, enddate state 를 가진 Component가 unmount 되었다가 다시 mount 되어 state가 초기값으로 변경되는것을 발견하였다.
 
 **해결** :
+부모가 리랜더링 될 때, 자식이 unmount 되었다가 다시 mount 되는 것은 자식 Component가 재생성 되는것이다. 즉 자식 Component가 랜더링 과정에서 재정의가 되는 것이므로 직감적으로 나의 Component 구조의 문제라는 것을 직감하였다.
+자세히 살펴보니 나의 Component는 아래와 같은 구조를 가지고 있었다.
+
+```
+const Parents = () => {
+	const [parentState, setParentState] = useState();
+	...
+	const Child = () => {
+		const pst = parentState; //부모의 state사용
+		...
+		return (...);
+	}
+	return( ... );
+}
+```
+
+나의 components가 이러한 구조를 가지게 된 이유는 자식이 부모의 state를 쉽게 가져오기 위함이었다. 하지만 구조적인 결함을 인지하지 못하였고 이와 같은 문제를 발생하게 하였다.
 
 **기타** :
+기초적인 동작과 구조에서 바보 같은 실수를 하여 부끄럽지만, 기본기를 다지는 좋은 기회였다고 생각한다. 그리고 useContext 와 더 나아가서 state관리 라이브러리의 필요성을 느끼게 되었다.
 
 #### 문제 8. (HeaderBar Animation)
 
