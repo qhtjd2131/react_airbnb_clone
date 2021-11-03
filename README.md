@@ -2,8 +2,10 @@
 
 ## 소개
 
-Window 환경에서 create-react-app 을 사용하여 Airbnb main page를 클론코딩했습니다.
-Chrome 을 기준으로 개발했기 때문에, 다른 브라우저와 호환이 되지 않을 수 도 있습니다.
+- Window 환경에서 create-react-app 을 사용하여 Airbnb main page를 클론코딩했습니다.
+- Chrome 을 기준으로 개발했기 때문에, 다른 브라우저와 호환이 되지 않을 수 도 있습니다.
+- 반응형 웹으로 XL, L 사이즈만을 고려했습니다.
+
 
 Airbnb : https://www.airbnb.co.kr/
 

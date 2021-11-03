@@ -237,7 +237,7 @@ const OpenButtonContainer = styled.div`
   transform-origin: center;
   transform: scale(2.3, 1) translateX(-25%);
   z-index: -1;
-  display : flex
+  display : flex;
   opacity : 0;
   align-items: center;
   ${(props) =>
