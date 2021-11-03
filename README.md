@@ -292,10 +292,12 @@ item이 4개 이상일 때, 각각의 Left, Right 버튼이 항상 display 되�
 
 
 **의도하는 동작**
+
 ![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/34260967/139823123-9ef0c57d-733c-47cf-89e8-543a3074e8a3.gif)
 
 
 **오류 발생 동작 (체크인 체크아웃 밑 label 을 봐주세요)**
+
 ![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/34260967/139824043-d5e3f140-eea5-4abf-920b-faed380651b6.gif)
 
 
