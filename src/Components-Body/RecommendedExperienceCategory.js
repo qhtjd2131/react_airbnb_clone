@@ -39,7 +39,7 @@ const ItemLabel = styled.label`
   font-size: 20px;
   font-weight: 600;
   padding: 10px 0px;
-  word-break: keep-all;
+  word-break: break-word;
 
   box-sizing: border-box;
 

@@ -98,7 +98,7 @@ const SearchBarContainer = styled.nav`
       ${props.openSearchBarInOverScroll && //스크롤바 내리고, 검색시작하기 버튼 클릭 시
       css`
         @media only screen and (max-width: 1070px) {
-          margin-top: 170px;
+          margin-top: 80px;
         }
         opacity: 1;
         transform: scale(1, 1) translateX(-50%);
@@ -237,8 +237,8 @@ const OpenButtonContainer = styled.div`
   transform-origin: center;
   transform: scale(2.3, 1) translateX(-25%);
   z-index: -1;
-
-  display: none;
+  display : flex
+  opacity : 0;
   align-items: center;
   ${(props) =>
     props.isOverScrollY &&
@@ -248,7 +248,8 @@ const OpenButtonContainer = styled.div`
       left: 50%;
       transform: scale(1, 1) translateX(-50%);
       padding: 13px;
-      display: flex;
+      /* display: flex; */
+      opacity : 1;
 
       @media only screen and (max-width: 1070px) {
         left: 25%;
