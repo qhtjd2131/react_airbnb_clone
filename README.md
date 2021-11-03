@@ -27,7 +27,7 @@ npm run start
 - 효율적인 조건부 스타일링을 위해 기존에 .css 파일을 import하는 방법 대신에 styled-components 라이브러리를 사용하여 스타일링 하였음.
 
 - transform : scale(), transition 을 이용하여 airbnb의 애니메이션을 구현함.
--
+
 
 **3. CRA (create-react-app)**
 
