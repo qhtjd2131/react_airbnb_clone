@@ -106,25 +106,25 @@ npm run start
 Header 부분 SearchBar 컴포넌트 아이템에 마우스 포인터 hover 시 밑줄 애니메이션 효과 구현
 
 **해결** :  
-처음엔 border-bottom 과 transition 을 이용하여 구현하려고 했지만, 하얀 선이 가운데서부터 양끝으로 퍼져나가는 애니메이션을 구현하지 못하였다.
+처음엔 `border-bottom` 과 `transition` 을 이용하여 구현하려고 했지만, 하얀 선이 가운데서부터 양끝으로 퍼져나가는 애니메이션을 구현하지 못하였다.
 
 그래서 구글링하여 찾은 방법은 :after 을 사용해 만든 밑줄 컴포넌트를 transform : scaleX() 를 통해 width의 크기를 줄이거나 늘리는 것이다.
 이때 :after의 상위 컴포넌트는
 
-```
+```css
 display : inline-block
 ```
 
 또는,
 
-```
+```css
 display:flex
 flex-direction : column
 ```
 
 을 이용하여 :after 컴포넌트가 바로 아래 배치되게 해야한다.
 
-```
+```css
 &:after {
 	display: block;
 	content: "";
@@ -188,7 +188,7 @@ Styled-Components를 사용하고 Components의 state와 props를 활용하여 �
 
 위 링크에서 'Marinolinderhof' 라는 사람은 처음 DOM에서 랜더링 되지 않기 때문에, 나의 코드처럼 미리 \<DayPickerRangeController \/> 를 처음부터 DOM에 포함 시키지 않고 아래와 같이 state에 따라 Element가 랜더링 되게 만들었다.
 
-```
+```javascript
 state={
 	 isBootstrapDropDownOpen: false;
 }
@@ -317,7 +317,10 @@ const Parents = () => {
 		...
 		return (...);
 	}
-	return( ... );
+	return( 
+		<Child />
+		...
+	 );
 }
 ```
 
@@ -329,7 +332,7 @@ const Parent = () => {
 
 }
 
-const Childe = () => {
+const Child = () => {
 	...
 }
 ```
